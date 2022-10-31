@@ -1,10 +1,10 @@
 import os
-
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from pprint import pprint
 from assign_players import random_assignment
+from final_scores_processing import get_final_scores, calculate_confluence_score
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -12,33 +12,25 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = discord.Client(intents=intents)
-
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 
-@client.event
-async def on_ready():
-    print(f'{client.user} is connected')
-
-
-@client.event
+@bot.event
 async def on_message(message):
     """
     Responds to specific messages
     :param discord.message.Message message: The message from the server
     """
-    # print(type(message))
-    print(message.author)
-    print(client.user)
-    if message.author == client.user:
+    if message.channel.name != "final-scores":
+        await bot.process_commands(message)
         return
-    print(message.channel_mentions)
-    print("message.content", type(message.content), message.content)
-    if message.content == "assign!":
-        print("assign!")
 
-    await message.channel.send("test back")
+    final_scores = get_final_scores(message.content)
+    if not final_scores:
+        return
+
+    confluence_score = calculate_confluence_score(final_scores)
+    await message.reply(f"Confluence Score: {confluence_score}")
 
 
 @bot.command(name="assign", help="Assigns players to factions")
@@ -48,8 +40,6 @@ async def assign_players(ctx, *players):
     :param list players: The list of players to assign
     """
 
-    print(ctx.command)
-    print(players)
     await ctx.message.reply("Assignments!\n" +
                             "\n".join([
                                 f"{player} - {faction}" for player, faction in random_assignment(list(players)).items()
@@ -57,5 +47,4 @@ async def assign_players(ctx, *players):
 
 
 if __name__ == '__main__':
-    # client.run(TOKEN)
     bot.run(TOKEN)
