@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 from pprint import pprint
-from datetime import date
+from datetime import date, timezone
 from assign_players import random_assignment, random_assignment_controlled
 from final_scores_processing import get_final_scores, calculate_confluence_score, report_to_sheet
 
@@ -30,12 +30,15 @@ async def on_message(message):
     if not final_scores:
         return
 
+    # print(message.created_at)
+    # print(message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
+
     # Respond with the confluence score
     confluence_score = calculate_confluence_score(final_scores)
     await message.reply(f"Confluence Score: {confluence_score}")
 
     # Add final scores to spreadsheet
-    report_to_sheet(final_scores)
+    report_to_sheet(final_scores, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
 
 
 @bot.command(name="assign", help="Assigns random factions to players")

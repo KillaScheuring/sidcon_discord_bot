@@ -69,7 +69,7 @@ def report_to_sheet(final_scores, game_date=None):
                 "Yengii Jii"]
 
     # Open the spreadsheet recording the final score data
-    spreadsheet = client.open("Sidereal Confluence Final Scores")
+    spreadsheet = client.open("Sidereal Confluence Final Scores Test")
     worksheet = spreadsheet.worksheet("title", "Final Scores")
     # Get the next unused row
     row_index = next_available_row(worksheet)
