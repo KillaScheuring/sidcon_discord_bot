@@ -35,7 +35,7 @@ async def on_message(message):
     await message.reply(f"Confluence Score: {confluence_score}")
 
     # Add final scores to spreadsheet
-    report_to_sheet(final_scores, message.created_at.date())
+    report_to_sheet(final_scores)
 
 
 @bot.command(name="assign", help="Assigns random factions to players")
