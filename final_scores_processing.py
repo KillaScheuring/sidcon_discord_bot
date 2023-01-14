@@ -2,13 +2,11 @@ from pprint import pprint
 from dotenv import load_dotenv
 import pygsheets
 import os
-from random import randint
 from datetime import date
 
 load_dotenv()
 GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
-SERVICE_ACCOUNT_KEY = os.getenv('SERVICE_ACCOUNT_KEY')
-client = pygsheets.authorize(service_account_file=f"{SERVICE_ACCOUNT_KEY}.json")
+client = pygsheets.authorize(service_account_env_var="SERVICE_ACCOUNT_KEY")
 
 
 def next_available_row(worksheet):
@@ -71,7 +69,7 @@ def report_to_sheet(final_scores, game_date=None):
                 "Yengii Jii"]
 
     # Open the spreadsheet recording the final score data
-    spreadsheet = client.open("Sidereal Confluence Final Scores")
+    spreadsheet = client.open("Sidereal Confluence Final Scores Test")
     worksheet = spreadsheet.worksheet("title", "Final Scores")
     # Get the next unused row
     row_index = next_available_row(worksheet)
