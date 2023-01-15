@@ -1,114 +1,54 @@
 from pprint import pprint
 from random import choice
 from math import floor
-
-sidereal_confluence_factions = [
-  {
-    "base": {
-      "full": "KT’ZR’KT’RTL",
-      "short": "Kit"
-    },
-    "expansion": {
-      "full": "KT’ZR’KT’RTL Technophiles",
-      "short": "Kit Technophiles"
-    }
-  },
-  {
-    "base": {
-      "full": "Caylion"
-    },
-    "expansion": {
-      "full": "Caylion Collaborative"
-    }
-  },
-  {
-    "base": {
-      "full": "Kjasjavikalimm",
-      "short": "Kjas"
-    },
-    "expansion": {
-      "full": "Kjasjavikalimm Independent Nations",
-      "short": "Kjas Independent Nations"
-    }
-  },
-  {
-    "base": {
-      "full": "Faderan"
-    },
-    "expansion": {
-      "full": "Society of Falling Light"
-    }
-  },
-  {
-    "base": {
-      "full": "Im’dril"
-    },
-    "expansion": {
-      "full": "Grand Fleet"
-    }
-  },
-  {
-    "base": {
-      "full": "Eni Et"
-    },
-    "expansion": {
-      "full": "Eni Et Engineers"
-    }
-  },
-  {
-    "base": {
-      "full": "Unity"
-    },
-    "expansion": {
-      "full": "Deep Unity"
-    }
-  },
-  {
-    "base": {
-      "full": "Yengii"
-    },
-    "expansion": {
-      "full": " Yengii Ji"
-    }
-  },
-  {
-    "base": {
-      "full": "Zeth"
-    },
-    "expansion": {
-      "full": "Charity Syndicate"
-    }
-  }
-]
+import json
 
 
-def random_assignment(players):
+def open_species():
+    with open("species.json", "r") as species_file:
+        return json.load(species_file)
+
+
+def get_current_assignments(message_content):
     """
-    Assigns Sidereal Confluence factions to players
-    :param list players: The list of players to assign factions to
-    :return dict: The assignments
+
+    :param str message_content:
+    :return:
     """
     assignments = {}
-    for player in players:
-        player_species = choice(sidereal_confluence_factions)
-        sidereal_confluence_factions.remove(player_species)
-        player_faction_version = choice(["base", "expansion"])
-        player_assignment = player_species[player_faction_version] \
-            .get("short", player_species[player_faction_version].get("full"))
-        assignments.setdefault(player, player_assignment)
-
+    for assignment in message_content.split("\n")[1:]:
+        if len(assignment.split(" - ")) < 2:
+            assignments.setdefault(assignment.replace(" -", ""), None)
+        else:
+            assignments.setdefault(assignment.split(" - ")[0], assignment.split(" - ")[1])
     return assignments
 
 
-def random_assignment_controlled(players):
+def random_assignment(players, alternate_limit=None, current_player_assignment=None):
     """
     Assigns Sidereal Confluence factions to players
     :param list players: The list of players to assign factions to
+    :param int alternate_limit: The limit to how many alternate factions are in the game
+    :param dict current_player_assignment: The limit to how many alternate factions are in the game
     :return dict: The assignments
     """
-    alternate_limit = floor(len(players)/3)
-    print(alternate_limit)
-    assignments = {}
+    if alternate_limit is None:
+        alternate_limit = floor(len(players) / 3)
+    if current_player_assignment is None:
+        current_player_assignment = {}
+    sidereal_confluence_factions = []
+    for faction in open_species():
+        if faction.get("base", {}).get("emoji", "") in current_player_assignment.values():
+            continue
+
+        if faction.get("expansion", {}).get("emoji", "") in current_player_assignment.values():
+            alternate_limit -= 1
+            continue
+
+        sidereal_confluence_factions.append(faction)
+
+    assignments = {player: ("", emoji) for player, emoji in current_player_assignment.items() if emoji}
+
     for player in players:
         player_species = choice(sidereal_confluence_factions)
         sidereal_confluence_factions.remove(player_species)
@@ -117,12 +57,25 @@ def random_assignment_controlled(players):
         else:
             player_faction_version = choice(["base", "expansion"])
         alternate_limit -= 1 if player_faction_version == "expansion" else 0
-        player_assignment = player_species[player_faction_version]\
+        player_assignment = player_species[player_faction_version] \
             .get("short", player_species[player_faction_version].get("full"))
+        player_emoji = player_species[player_faction_version].get("emoji")
         # print(player, player_assignment)
-        assignments.setdefault(player, player_assignment)
+        assignments.setdefault(player, (player_assignment, player_emoji))
     # pprint(assignments)
     return assignments
+
+
+def structure_assignments(assignments):
+    """
+    :param assignments:
+    :return:
+    """
+    return "Assignments!\n" + \
+           "\n".join([
+               f"{player} - {emoji} {faction}" for player, (faction, emoji)
+               in assignments.items()
+           ])
 
 
 if __name__ == '__main__':
@@ -144,8 +97,9 @@ if __name__ == '__main__':
     ]
     # pprint(random_assignment(players_list))
     # pprint(random_assignment_controlled(players_list))
+    # pprint(random_assignment_controlled(list(players_list)))
     print("Assignments!\n" +
-                            "\n".join([
-                                f"{player} - {faction}" for player, faction
-                                in random_assignment_controlled(list(players_list)).items()
-                            ]))
+          "\n".join([
+              f"{player} - {faction} :{emoji}:" for player, (faction, emoji)
+              in random_assignment(list(players_list)).items()
+          ]))

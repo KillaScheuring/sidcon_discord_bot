@@ -4,7 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from pprint import pprint
 from datetime import date, timezone
-from assign_players import random_assignment, random_assignment_controlled
+from assign_players import random_assignment, structure_assignments, get_current_assignments
 from final_scores_processing import get_final_scores, calculate_confluence_score, report_to_sheet
 
 load_dotenv()
@@ -47,26 +47,38 @@ async def random_assign_players(ctx, *players):
     :param commands.context.Context ctx:
     :param list players: The list of players to assign
     """
+    if "\n" in ctx.message.content:
+        current_assignments = get_current_assignments(ctx.message.content)
+        await ctx.message.reply(structure_assignments(
+            random_assignment(list(current_assignments.keys()), 10, current_assignments)
+        ))
+    else:
+        await ctx.message.reply(structure_assignments(random_assignment(list(players), 10)))
 
-    await ctx.message.reply("Assignments!\n" +
-                            "\n".join([
-                                f"{player} - {faction}" for player, faction
-                                in random_assignment(list(players)).items()
-                            ]))
 
-
-@bot.command(name="assign-control", help="Assigns factions to players controls alternates")
+@bot.command(name="assign-control", help="Assigns factions to players and controls the number of alternates")
 async def random_assign_players(ctx, *players):
     """
     :param commands.context.Context ctx:
     :param list players: The list of players to assign
     """
 
-    await ctx.message.reply("Assignments!\n" +
-                            "\n".join([
-                                f"{player} - {faction}" for player, faction
-                                in random_assignment_controlled(list(players)).items()
-                            ]))
+    if "\n" in ctx.message.content:
+        current_assignments = get_current_assignments(ctx.message.content)
+        await ctx.message.reply(structure_assignments(
+            random_assignment(list(current_assignments.keys()), None, current_assignments)
+        ))
+    else:
+        await ctx.message.reply(structure_assignments(random_assignment(list(players))))
+
+
+@bot.command(name="assign-selection", help="Assigns factions to players where some players have assignments")
+async def random_assign_selected(ctx):
+    """
+    :param ctx:
+    :return:
+    """
+    print(ctx.message.content)
 
 
 if __name__ == '__main__':
