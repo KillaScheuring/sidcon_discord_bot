@@ -3,10 +3,13 @@ from dotenv import load_dotenv
 import pygsheets
 import os
 from datetime import date
+import re
+from assign_players import list_factions
 
 load_dotenv()
 GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
 client = pygsheets.authorize(service_account_env_var="SERVICE_ACCOUNT_KEY")
+GOOGLE_SPREADSHEET = os.getenv("GOOGLE_SPREADSHEET")
 
 
 def next_available_row(worksheet):
@@ -24,7 +27,7 @@ def get_final_scores(message_content):
     if "-" not in message_content:
         return {}
 
-    message_content = message_content.replace("Kjas Independence", "Kjas Independents")
+    message_content = re.sub("(\s+)(-)(\s+)", " - ", message_content)
 
     faction_rows = message_content.split("\n")
     return {faction: float(score) for faction, score in [row.split(" - ") for row in faction_rows if " - " in row]}
@@ -49,43 +52,38 @@ def report_to_sheet(final_scores, game_date=None):
     """
     if not game_date:
         game_date = date.today()
-    factions = ["K't",
-                "Caylion",
-                "Kjas",
-                "Faderan",
-                "Eni Et",
-                "Unity",
-                "Im'dril",
-                "Zeth",
-                "Yengii",
-                "K't Technophiles",
-                "Caylion Collaborative",
-                "Kjas Independents",
-                "Society of Falling Light",
-                "Eni Et Engineers",
-                "Deep Unity",
-                "Im'dril Grand Fleet",
-                "Zeth Charity Syndicate",
-                "Yengii Jii"]
+
+    sidereal_confluence_factions = list_factions()
 
     # Open the spreadsheet recording the final score data
-    spreadsheet = client.open("Sidereal Confluence Final Scores")
+    spreadsheet = client.open(GOOGLE_SPREADSHEET)
     worksheet = spreadsheet.worksheet("title", "Final Scores")
+
     # Get the next unused row
     row_index = next_available_row(worksheet)
 
-    # Add the date
-    worksheet.cell(f"A{row_index}").value = game_date.strftime("%m/%d/%Y")
-    # Add the confluence score, winner, and player count calculations
-    worksheet.cell(f"B{row_index}").value = f"=ROUND(SUM(E{row_index}:V{row_index})/(D{row_index}-1), 1)"
-    worksheet.cell(f"C{row_index}").value = f"=INDEX($E$1:$V$1,0," \
-                                            f"MATCH(MAX($E{row_index}:$V{row_index}),$E{row_index}:$V{row_index},0))"
-    worksheet.cell(f"D{row_index}").value = f"=COUNTA(E{row_index}:V{row_index})"
+    pprint(final_scores)
 
     # Loop through the factions and input the appropriate values from the final scores
-    for index, faction in enumerate(factions):
-        faction_cell = chr(index+ord("E")) + str(row_index)
-        worksheet.cell(faction_cell).value = final_scores.get(faction, "")
+    for index, faction in enumerate(sidereal_confluence_factions):
+        faction_cell = chr(index + ord("E")) + str(row_index)
+        if faction.get("full") in final_scores or faction.get("emoji") in final_scores:
+            worksheet.cell(faction_cell).value = \
+                final_scores.get(faction.get("full"), final_scores.get(faction.get("emoji")))
+        elif len(set(faction.get("short", [])) - set(final_scores.keys())) < len(faction.get("short", [])):
+            for short_name in faction.get("short", []):
+                if final_scores.get(short_name):
+                    worksheet.cell(faction_cell).value = final_scores.get(short_name)
+
+    # Add the date
+    worksheet.cell(f"A{row_index}").value = game_date.strftime("%m/%d/%Y")
+    # Add the confluence score calculations
+    worksheet.cell(f"B{row_index}").value = f"=ROUND(SUM(E{row_index}:V{row_index})/(D{row_index}-1), 1)"
+    # Add the winner calculation
+    worksheet.cell(f"C{row_index}").value = f"=INDEX($E$1:$V$1,0," \
+                                            f"MATCH(MAX($E{row_index}:$V{row_index}),$E{row_index}:$V{row_index},0))"
+    # Add the player count
+    worksheet.cell(f"D{row_index}").value = f"=COUNTA(E{row_index}:V{row_index})"
 
 
 if __name__ == '__main__':

@@ -9,6 +9,17 @@ def open_species():
         return json.load(species_file)
 
 
+def list_factions():
+    with open("species.json", "r") as species_file:
+        species_list = json.load(species_file)
+        faction_list = []
+        for species in species_list:
+            faction_list.append(species.get("base"))
+        for species in species_list:
+            faction_list.append(species.get("expansion"))
+        return faction_list
+
+
 def get_current_assignments(message_content):
     """
 
