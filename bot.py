@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from pprint import pprint
 from datetime import date, timezone
 from assign_players import random_assignment, structure_assignments, get_current_assignments
-from final_scores_processing import get_final_scores, calculate_confluence_score, report_to_sheet
+from final_scores_processing import get_final_scores, structure_response, report_to_sheet
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -30,12 +30,8 @@ async def on_message(message):
     if not final_scores:
         return
 
-    # print(message.created_at)
-    # print(message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
-
     # Respond with the confluence score
-    confluence_score = calculate_confluence_score(final_scores)
-    await message.reply(f"Confluence Score: {confluence_score}")
+    await message.reply(structure_response(final_scores))
 
     # Add final scores to spreadsheet
     report_to_sheet(final_scores, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))

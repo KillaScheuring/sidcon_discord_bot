@@ -4,7 +4,7 @@ import pygsheets
 import os
 from datetime import date
 import re
-from assign_players import list_factions
+from assign_players import list_factions, find_faction
 
 load_dotenv()
 GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
@@ -44,6 +44,19 @@ def calculate_confluence_score(final_scores):
     return round(sum(scores) / (len(scores) - 1), 2)
 
 
+def calculate_winner(final_scores):
+    """
+    Calculates the confluence score for a game
+    :param dict final_scores: The scores for the game
+    :return float: The confluence score of the game
+    """
+    winner = (None, 0)
+    for (faction, score) in final_scores.items():
+        if score > winner[1]:
+            winner = (faction, score)
+    return find_faction(winner[0]), winner[1]
+
+
 def report_to_sheet(final_scores, game_date=None):
     """
     Takes the final scores and puts them into the Google sheet
@@ -61,8 +74,6 @@ def report_to_sheet(final_scores, game_date=None):
 
     # Get the next unused row
     row_index = next_available_row(worksheet)
-
-    pprint(final_scores)
 
     # Loop through the factions and input the appropriate values from the final scores
     for index, faction in enumerate(sidereal_confluence_factions):
@@ -84,6 +95,21 @@ def report_to_sheet(final_scores, game_date=None):
                                             f"MATCH(MAX($E{row_index}:$V{row_index}),$E{row_index}:$V{row_index},0))"
     # Add the player count
     worksheet.cell(f"D{row_index}").value = f"=COUNTA(E{row_index}:V{row_index})"
+
+
+def structure_response(final_scores):
+    """
+
+    :param final_scores:
+    :return:
+    """
+    confluence_score = calculate_confluence_score(final_scores)
+    winner, score = calculate_winner(final_scores)
+    return f"Winner: \n" \
+           f"{winner.get('emoji')} {winner.get('short', [winner.get('full')])[0]} with {score}\n" \
+           f"\n" \
+           f"Confluence Score: \n" \
+           f"{confluence_score}"
 
 
 if __name__ == '__main__':

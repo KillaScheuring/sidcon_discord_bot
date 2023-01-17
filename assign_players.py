@@ -5,11 +5,19 @@ import json
 
 
 def open_species():
+    """
+
+    :return: list
+    """
     with open("species.json", "r") as species_file:
         return json.load(species_file)
 
 
 def list_factions():
+    """
+
+    :return: list
+    """
     with open("species.json", "r") as species_file:
         species_list = json.load(species_file)
         faction_list = []
@@ -18,6 +26,22 @@ def list_factions():
         for species in species_list:
             faction_list.append(species.get("expansion"))
         return faction_list
+
+
+def find_faction(faction_label):
+    """
+
+    :param faction_label:
+    :return: dict
+    """
+    factions = list_factions()
+    for faction in factions:
+        if faction.get("emoji") == faction_label:
+            return faction
+        if faction.get("full") == faction_label:
+            return faction
+        if faction_label in faction.get("short", []):
+            return faction
 
 
 def get_current_assignments(message_content):
@@ -69,7 +93,7 @@ def random_assignment(players, alternate_limit=None, current_player_assignment=N
             player_faction_version = choice(["base", "expansion"])
         alternate_limit -= 1 if player_faction_version == "expansion" else 0
         player_assignment = player_species[player_faction_version] \
-            .get("short", player_species[player_faction_version].get("full"))
+            .get("short", [player_species[player_faction_version].get("full")])[0]
         player_emoji = player_species[player_faction_version].get("emoji")
         # print(player, player_assignment)
         assignments.setdefault(player, (player_assignment, player_emoji))
