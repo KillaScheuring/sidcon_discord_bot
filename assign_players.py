@@ -52,6 +52,7 @@ def get_current_assignments(message_content):
     """
     assignments = {}
     for assignment in message_content.split("\n")[1:]:
+        assignment = assignment.strip()
         if len(assignment.split(" - ")) < 2:
             assignments.setdefault(assignment.replace(" -", ""), None)
         else:
@@ -67,37 +68,58 @@ def random_assignment(players, alternate_limit=None, current_player_assignment=N
     :param dict current_player_assignment: The limit to how many alternate factions are in the game
     :return dict: The assignments
     """
+    # If no alternate limit, set to a third of the players
     if alternate_limit is None:
         alternate_limit = floor(len(players) / 3)
+
+    # If no current players set to empty dictionary
     if current_player_assignment is None:
         current_player_assignment = {}
+
+    # Remove species already assigned
     sidereal_confluence_factions = []
     for faction in open_species():
+        # Check if base version of faction is already assigned
         if faction.get("base", {}).get("emoji", "") in current_player_assignment.values():
             continue
 
+        # Check if expansion version of faction is already assigned
         if faction.get("expansion", {}).get("emoji", "") in current_player_assignment.values():
+            # Record to alternate limit
             alternate_limit -= 1
             continue
-
+        # Add species to assignable factions
         sidereal_confluence_factions.append(faction)
 
+    # Create assignments dictionary and add current assignments
     assignments = {player: ("", emoji) for player, emoji in current_player_assignment.items() if emoji}
 
+    # Loop through players to assign faction
     for player in players:
+        # Skip if player already has an assignment
+        if player in assignments:
+            continue
+
+        # Pick a species for the player
         player_species = choice(sidereal_confluence_factions)
+        # Remove the pick from available species to keep other players from getting it
         sidereal_confluence_factions.remove(player_species)
-        if alternate_limit == 0:
+
+        # Pick the version
+        if alternate_limit <= 0:
+            # Pick base if expansion allowance out
             player_faction_version = "base"
         else:
+            # Randomly pick base or expansion
             player_faction_version = choice(["base", "expansion"])
+        # Record to alternate limit
         alternate_limit -= 1 if player_faction_version == "expansion" else 0
+
+        # Add short name and emoji to assignments dictionary
         player_assignment = player_species[player_faction_version] \
             .get("short", [player_species[player_faction_version].get("full")])[0]
         player_emoji = player_species[player_faction_version].get("emoji")
-        # print(player, player_assignment)
         assignments.setdefault(player, (player_assignment, player_emoji))
-    # pprint(assignments)
     return assignments
 
 
