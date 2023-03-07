@@ -2,6 +2,7 @@ from pprint import pprint
 from random import choice
 from math import floor
 import json
+from discord.message import Message
 
 
 def open_species():
@@ -44,20 +45,30 @@ def find_faction(faction_label):
             return faction
 
 
-def get_current_assignments(message_content):
+def get_current_assignments(message):
     """
 
-    :param str message_content:
+    :param Message message:
     :return:
     """
+    message_content = message.content
+
+    exclusions = {}
+    for user in message.mentions:
+        message_content.replace(f"<@{user.id}>", user.name)
+        for role in user.roles:
+            if "no-" not in role.name:
+                continue
+            exclusions.setdefault(user.name, []).append(role.name)
+
     assignments = {}
     for assignment in message_content.split("\n")[1:]:
-        assignment = assignment.strip()
-        if len(assignment.split(" - ")) < 2:
-            assignments.setdefault(assignment.replace(" -", ""), None)
-        else:
-            assignments.setdefault(assignment.split(" - ")[0], assignment.split(" - ")[1])
-    return assignments
+        # Get player and current assignment
+        assignment = assignment.strip() + " "
+        player, faction = assignment.split(" - ")
+        assignments.setdefault(player.strip(), faction.strip())
+
+    return assignments, exclusions
 
 
 def random_assignment(players, alternate_limit=None, current_player_assignment=None):

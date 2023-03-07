@@ -44,7 +44,7 @@ async def random_assign_players(ctx, *players):
     :param list players: The list of players to assign
     """
     if "\n" in ctx.message.content:
-        current_assignments = get_current_assignments(ctx.message.content)
+        current_assignments, player_exclusions = get_current_assignments(ctx.message)
         await ctx.message.reply(structure_assignments(
             random_assignment(list(current_assignments.keys()), 10, current_assignments)
         ))

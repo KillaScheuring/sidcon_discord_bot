@@ -3,98 +3,116 @@
     "base": {
       "full": "KT’ZR’KT’RTL",
       "short": ["Kit", "K't"],
-      "emoji": "<:kit:973968075655356476>"
+      "emoji": "<:kit:973968075655356476>",
+      "exclusion": "no-kit"
     },
     "expansion": {
       "full": "KT’ZR’KT’RTL Technophiles",
       "short": ["Kit Technophiles", "K't Technophiles"],
-      "emoji": "<:kit_technophiles:973994842571047022>"
+      "emoji": "<:kit_technophiles:973994842571047022>",
+      "exclusion": "no-kit-technophiles"
     }
   },
   {
     "base": {
       "full": "Caylion",
-      "emoji":"<:caylion:973967848634474556>"
+      "emoji":"<:caylion:973967848634474556>",
+      "exclusion": "no-caylion"
     },
     "expansion": {
       "full": "Caylion Collaborative",
-      "emoji":"<:caylion_collaborative:973994842172555284>"
+      "emoji":"<:caylion_collaborative:973994842172555284>",
+      "exclusion": "no-caylion-collaborative"
     }
   },
   {
     "base": {
       "full": "Kjasjavikalimm",
       "short": ["Kjas"],
-      "emoji":"<:kjas:973968215262781460> "
+      "emoji":"<:kjas:973968215262781460>",
+      "exclusion": "no-kjas"
     },
     "expansion": {
       "full": "Kjasjavikalimm Independent Nations",
       "short": ["Kjas Independent Nations", "Kjas Independents", "Kjas Independence"],
-      "emoji":"<:kjas_independent_nations:973994842663301180>"
+      "emoji":"<:kjas_independent_nations:973994842663301180>",
+      "exclusion": "no-kjas-independent-nations"
     }
   },
   {
     "base": {
       "full": "Faderan",
       "short": ["Fade"],
-      "emoji":"<:faderan:973968175848882186>"
+      "emoji":"<:faderan:973968175848882186>",
+      "exclusion": "no-faderan"
     },
     "expansion": {
       "full": "Society of Falling Light",
       "short": ["Falling Light"],
-      "emoji":"<:faderan_society_of_falling_light:973994842541674516>"
+      "emoji":"<:faderan_society_of_falling_light:973994842541674516>",
+      "exclusion": "no--falling-light"
     }
   },
   {
     "base": {
       "full": "Im'dril",
-      "emoji":"<:imdril:973968194974933053>"
+      "emoji":"<:imdril:973968194974933053>",
+      "exclusion": "no-imdril"
     },
     "expansion": {
       "full": "Grand Fleet",
       "short": ["Grand Fleet", "Im'dril Grand Fleet"],
-      "emoji":"<:imdril_grand_fleet:973994842512293908>"
+      "emoji":"<:imdril_grand_fleet:973994842512293908>",
+      "exclusion": "no-grand-fleet"
     }
   },
   {
     "base": {
       "full": "Eni Et",
-      "emoji":"<:eni_et:973967900757090305>"
+      "emoji":"<:eni_et:973967900757090305>",
+      "exclusion": "no-eni-et"
     },
     "expansion": {
       "full": "Eni Et Engineers",
-      "emoji":"<:eni_et_engineers:973994842365493298>"
+      "emoji":"<:eni_et_engineers:973994842365493298>",
+      "exclusion": "no-eni-et-engineers"
     }
   },
   {
     "base": {
       "full": "Unity",
-      "emoji":"<:unity:973968273282592788>"
+      "emoji":"<:unity:973968273282592788>",
+      "exclusion": "no-unity"
     },
     "expansion": {
       "full": "Deep Unity",
-      "emoji":"<:deep_unity:973994842306793574>"
+      "emoji":"<:deep_unity:973994842306793574>",
+      "exclusion": "no-deep-unity"
     }
   },
   {
     "base": {
       "full": "Yengii",
-      "emoji":"<:yengii:973968291259351041>"
+      "emoji":"<:yengii:973968291259351041>",
+      "exclusion": "no-yengii"
     },
     "expansion": {
       "full": "Yengii Ji",
-      "emoji":"<:yengii_jii:973994842390687744>"
+      "emoji":"<:yengii_jii:973994842390687744>",
+      "exclusion": "no-yengii-jii"
     }
   },
   {
     "base": {
       "full": "Zeth",
-      "emoji":"<:zeth:973968307969458239>"
+      "emoji":"<:zeth:973968307969458239>",
+      "exclusion": "no-zeth"
     },
     "expansion": {
       "full": "Charity Syndicate",
       "short": ["Zeth Charity"],
-      "emoji":"<:zeth_charity_syndicate:973994842575220776>"
+      "emoji":"<:zeth_charity_syndicate:973994842575220776>",
+      "exclusion": "no-zeth-charity"
     }
   }
 ]
