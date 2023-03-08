@@ -45,6 +45,15 @@ def find_faction(faction_label):
             return faction
 
 
+def format_player_selection(faction):
+    """
+
+    :param faction:
+    :return:
+    """
+    return faction.get("short", [faction.get("full")])[0], faction.get("emoji")
+
+
 def get_current_assignments(message):
     """
 
@@ -55,7 +64,7 @@ def get_current_assignments(message):
 
     exclusions = {}
     for user in message.mentions:
-        message_content.replace(f"<@{user.id}>", user.name)
+        message_content = message_content.replace(f"<@{user.id}>", user.name)
         for role in user.roles:
             if "no-" not in role.name:
                 continue
@@ -71,12 +80,13 @@ def get_current_assignments(message):
     return assignments, exclusions
 
 
-def random_assignment(players, alternate_limit=None, current_player_assignment=None):
+def random_assignment(players, alternate_limit=None, current_player_assignment=None, player_exclusions=None):
     """
     Assigns Sidereal Confluence factions to players
     :param list players: The list of players to assign factions to
     :param int alternate_limit: The limit to how many alternate factions are in the game
     :param dict current_player_assignment: The limit to how many alternate factions are in the game
+    :param dict player_exclusions: The list of player faction exclusions
     :return dict: The assignments
     """
     # If no alternate limit, set to a third of the players
@@ -88,7 +98,7 @@ def random_assignment(players, alternate_limit=None, current_player_assignment=N
         current_player_assignment = {}
 
     # Remove species already assigned
-    sidereal_confluence_factions = []
+    sidcon_species = []
     for faction in open_species():
         # Check if base version of faction is already assigned
         if faction.get("base", {}).get("emoji", "") in current_player_assignment.values():
@@ -100,10 +110,47 @@ def random_assignment(players, alternate_limit=None, current_player_assignment=N
             alternate_limit -= 1
             continue
         # Add species to assignable factions
-        sidereal_confluence_factions.append(faction)
+        sidcon_species.append(faction)
 
     # Create assignments dictionary and add current assignments
     assignments = {player: ("", emoji) for player, emoji in current_player_assignment.items() if emoji}
+
+    # Loop through players with exclusions
+    for player in player_exclusions:
+        # Skip if player already has an assignment
+        if player in assignments:
+            continue
+
+        player_options = [
+            (species, [
+                version
+                for version in species.keys()
+                if species.get(version).get("exclusion") not in player_exclusions[player]
+            ])
+            for species in sidcon_species
+            if species.get("base").get("exclusion") not in player_exclusions[player] or
+               species.get("expansion").get("exclusion") not in player_exclusions[player]
+        ]
+
+        # Pick a species for the player
+        player_species, versions = choice(player_options)
+
+        # Pick the version
+        if alternate_limit <= 0 and "base" in versions:
+            # Pick base if expansion allowance out
+            player_faction_version = "base"
+        else:
+            # Randomly pick base or expansion
+            player_faction_version = choice(versions)
+        # Record to alternate limit
+        alternate_limit -= 1 if player_faction_version == "expansion" else 0
+
+        # Remove the pick from available species to keep other players from getting it
+        sidcon_species.remove(player_species)
+
+        # Add short name and emoji to assignments dictionary
+        player_assignment, player_emoji = format_player_selection(player_species[player_faction_version])
+        assignments.setdefault(player, (player_assignment, player_emoji))
 
     # Loop through players to assign faction
     for player in players:
@@ -112,9 +159,9 @@ def random_assignment(players, alternate_limit=None, current_player_assignment=N
             continue
 
         # Pick a species for the player
-        player_species = choice(sidereal_confluence_factions)
+        player_species = choice(sidcon_species)
         # Remove the pick from available species to keep other players from getting it
-        sidereal_confluence_factions.remove(player_species)
+        sidcon_species.remove(player_species)
 
         # Pick the version
         if alternate_limit <= 0:
@@ -127,9 +174,7 @@ def random_assignment(players, alternate_limit=None, current_player_assignment=N
         alternate_limit -= 1 if player_faction_version == "expansion" else 0
 
         # Add short name and emoji to assignments dictionary
-        player_assignment = player_species[player_faction_version] \
-            .get("short", [player_species[player_faction_version].get("full")])[0]
-        player_emoji = player_species[player_faction_version].get("emoji")
+        player_assignment, player_emoji = format_player_selection(player_species[player_faction_version])
         assignments.setdefault(player, (player_assignment, player_emoji))
     return assignments
 

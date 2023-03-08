@@ -46,7 +46,7 @@ async def random_assign_players(ctx, *players):
     if "\n" in ctx.message.content:
         current_assignments, player_exclusions = get_current_assignments(ctx.message)
         await ctx.message.reply(structure_assignments(
-            random_assignment(list(current_assignments.keys()), 10, current_assignments)
+            random_assignment(list(current_assignments.keys()), 10, current_assignments, player_exclusions)
         ))
     else:
         await ctx.message.reply(structure_assignments(random_assignment(list(players), 10)))
@@ -60,9 +60,9 @@ async def random_assign_players(ctx, *players):
     """
 
     if "\n" in ctx.message.content:
-        current_assignments = get_current_assignments(ctx.message.content)
+        current_assignments, player_exclusions = get_current_assignments(ctx.message)
         await ctx.message.reply(structure_assignments(
-            random_assignment(list(current_assignments.keys()), None, current_assignments)
+            random_assignment(list(current_assignments.keys()), None, current_assignments, player_exclusions)
         ))
     else:
         await ctx.message.reply(structure_assignments(random_assignment(list(players))))
