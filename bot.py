@@ -109,5 +109,18 @@ async def assign_exclusion(ctx, *factions):
         await ctx.message.author.add_roles(find_role(ctx, role_name))
 
 
+@bot.command(name="add", help="Remove exclusion role from your user. For example, no-unity to be assigned unity")
+async def assign_exclusion(ctx, *factions):
+    """
+
+    :param ctx:
+    :param factions:
+    :return:
+    """
+    role_names = emoji_to_exclusion(factions)
+    for role_name in role_names:
+        await ctx.message.author.remove_roles(find_role(ctx, role_name))
+
+
 if __name__ == '__main__':
     bot.run(TOKEN)
