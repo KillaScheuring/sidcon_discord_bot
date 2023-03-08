@@ -1,11 +1,13 @@
 import os
 import discord
 from discord.ext import commands
+from discord import Member
 from dotenv import load_dotenv
 from pprint import pprint
-from datetime import date, timezone
+from datetime import timezone
 from assign_players import random_assignment, structure_assignments, get_current_assignments, list_factions
 from final_scores_processing import get_final_scores, structure_response, report_to_sheet
+from manage_roles import find_role, emoji_to_exclusion
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -95,13 +97,16 @@ async def add_roles(ctx):
 
 
 @bot.command(name="no", help="Add exclusion role to your user. For example, no-unity to not be assigned unity")
-async def assign_exclusion(ctx, factions):
+async def assign_exclusion(ctx, *factions):
     """
 
     :param ctx:
     :param factions:
     :return:
     """
+    role_names = emoji_to_exclusion(factions)
+    for role_name in role_names:
+        await ctx.message.author.add_roles(find_role(ctx, role_name))
 
 
 if __name__ == '__main__':
