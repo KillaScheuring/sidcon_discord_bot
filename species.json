@@ -3,6 +3,7 @@
     "base": {
       "full": "KT’ZR’KT’RTL",
       "short": ["Kit", "K't"],
+      "abbreviation": "KA",
       "emoji": "<:kit:973968075655356476>",
       "exclusion": "no-kit",
       "color": {
@@ -13,6 +14,7 @@
     "expansion": {
       "full": "KT’ZR’KT’RTL Technophiles",
       "short": ["Kit Technophiles", "K't Technophiles"],
+      "abbreviation": "KT",
       "emoji": "<:kit_technophiles:973994842571047022>",
       "exclusion": "no-kit-technophiles",
       "color": {
@@ -24,6 +26,7 @@
   {
     "base": {
       "full": "Caylion",
+      "abbreviation": "CP",
       "emoji":"<:caylion:973967848634474556>",
       "exclusion": "no-caylion",
       "color": {
@@ -33,6 +36,7 @@
     },
     "expansion": {
       "full": "Caylion Collaborative",
+      "abbreviation": "CC",
       "emoji":"<:caylion_collaborative:973994842172555284>",
       "exclusion": "no-caylion-collaborative",
       "color": {
@@ -45,6 +49,7 @@
     "base": {
       "full": "Kjasjavikalimm",
       "short": ["Kjas"],
+      "abbreviation": "KD",
       "emoji":"<:kjas:973968215262781460>",
       "exclusion": "no-kjas",
       "color": {
@@ -55,6 +60,7 @@
     "expansion": {
       "full": "Kjasjavikalimm Independent Nations",
       "short": ["Kjas Independent Nations", "Kjas Independents", "Kjas Independence"],
+      "abbreviation": "KI",
       "emoji":"<:kjas_independent_nations:973994842663301180>",
       "exclusion": "no-kjas-independent-nations",
       "color": {
@@ -67,6 +73,7 @@
     "base": {
       "full": "Faderan",
       "short": ["Fade"],
+      "abbreviation": "FC",
       "emoji":"<:faderan:973968175848882186>",
       "exclusion": "no-faderan",
       "color": {
@@ -77,6 +84,7 @@
     "expansion": {
       "full": "Society of Falling Light",
       "short": ["Falling Light"],
+      "abbreviation": "FL",
       "emoji":"<:faderan_society_of_falling_light:973994842541674516>",
       "exclusion": "no-falling-light",
       "color": {
@@ -88,6 +96,7 @@
   {
     "base": {
       "full": "Im'dril",
+      "abbreviation": "IN",
       "emoji":"<:imdril:973968194974933053>",
       "exclusion": "no-imdril",
       "color": {
@@ -98,6 +107,7 @@
     "expansion": {
       "full": "Grand Fleet",
       "short": ["Grand Fleet", "Im'dril Grand Fleet"],
+      "abbreviation": "IG",
       "emoji":"<:imdril_grand_fleet:973994842512293908>",
       "exclusion": "no-grand-fleet",
       "color": {
@@ -109,6 +119,7 @@
   {
     "base": {
       "full": "Eni Et",
+      "abbreviation": "EA",
       "emoji":"<:eni_et:973967900757090305>",
       "exclusion": "no-eni-et",
       "color": {
@@ -118,6 +129,7 @@
     },
     "expansion": {
       "full": "Eni Et Engineers",
+      "abbreviation": "EE",
       "emoji":"<:eni_et_engineers:973994842365493298>",
       "exclusion": "no-eni-et-engineers",
       "color": {
@@ -129,6 +141,7 @@
   {
     "base": {
       "full": "Unity",
+      "abbreviation": "U",
       "emoji":"<:unity:973968273282592788>",
       "exclusion": "no-unity",
       "color": {
@@ -138,6 +151,7 @@
     },
     "expansion": {
       "full": "Deep Unity",
+      "abbreviation": "DU",
       "emoji":"<:deep_unity:973994842306793574>",
       "exclusion": "no-deep-unity",
       "color": {
@@ -149,6 +163,7 @@
   {
     "base": {
       "full": "Yengii",
+      "abbreviation": "YS",
       "emoji":"<:yengii:973968291259351041>",
       "exclusion": "no-yengii",
       "color": {
@@ -158,6 +173,7 @@
     },
     "expansion": {
       "full": "Yengii Ji",
+      "abbreviation": "YJ",
       "emoji":"<:yengii_jii:973994842390687744>",
       "exclusion": "no-yengii-jii",
       "color": {
@@ -169,6 +185,7 @@
   {
     "base": {
       "full": "Zeth",
+      "abbreviation": "ZA",
       "emoji":"<:zeth:973968307969458239>",
       "exclusion": "no-zeth",
       "color": {
@@ -179,6 +196,7 @@
     "expansion": {
       "full": "Charity Syndicate",
       "short": ["Zeth Charity"],
+      "abbreviation": "ZC",
       "emoji":"<:zeth_charity_syndicate:973994842575220776>",
       "exclusion": "no-zeth-charity",
       "color": {
