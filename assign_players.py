@@ -45,6 +45,15 @@ def find_faction(faction_label):
             return faction
 
 
+def emoji_to_exclusion(emojis):
+    """
+
+    :param emojis:
+    :return:
+    """
+    return [find_faction(emoji).get("exclusion") for emoji in emojis]
+
+
 def format_player_selection(faction):
     """
 

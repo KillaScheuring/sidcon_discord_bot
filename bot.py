@@ -4,7 +4,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 from pprint import pprint
 from datetime import date, timezone
-from assign_players import random_assignment, structure_assignments, get_current_assignments
+from assign_players import random_assignment, structure_assignments, get_current_assignments, list_factions
 from final_scores_processing import get_final_scores, structure_response, report_to_sheet
 
 load_dotenv()
@@ -75,6 +75,33 @@ async def random_assign_selected(ctx):
     :return:
     """
     print(ctx.message.content)
+
+
+@bot.command(name="create-roles", help="Adds roles for bot operation")
+async def add_roles(ctx):
+    """
+    Adds the roles for exclusions during assignments
+    :param ctx:
+    :return:
+    """
+    if "Yengii" not in [role.name for role in ctx.message.author.roles]:
+        return
+
+    for faction in list_factions():
+        exclusion_role = faction.get("exclusion")
+        # role_color = Color(int(faction.get("color", {}).get("hex"), 16))
+        if exclusion_role not in [role.name for role in ctx.guild.roles]:
+            await ctx.guild.create_role(name=exclusion_role, colour=None)
+
+
+@bot.command(name="no", help="Add exclusion role to your user. For example, no-unity to not be assigned unity")
+async def assign_exclusion(ctx, factions):
+    """
+
+    :param ctx:
+    :param factions:
+    :return:
+    """
 
 
 if __name__ == '__main__':

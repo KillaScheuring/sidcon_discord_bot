@@ -4,25 +4,41 @@
       "full": "KT’ZR’KT’RTL",
       "short": ["Kit", "K't"],
       "emoji": "<:kit:973968075655356476>",
-      "exclusion": "no-kit"
+      "exclusion": "no-kit",
+      "color": {
+        "hex": "F47109",
+        "rgb": [244, 113, 9]
+      }
     },
     "expansion": {
       "full": "KT’ZR’KT’RTL Technophiles",
       "short": ["Kit Technophiles", "K't Technophiles"],
       "emoji": "<:kit_technophiles:973994842571047022>",
-      "exclusion": "no-kit-technophiles"
+      "exclusion": "no-kit-technophiles",
+      "color": {
+        "hex": "FE7B37",
+        "rgb": [254, 123, 55]
+      }
     }
   },
   {
     "base": {
       "full": "Caylion",
       "emoji":"<:caylion:973967848634474556>",
-      "exclusion": "no-caylion"
+      "exclusion": "no-caylion",
+      "color": {
+        "hex": "64BF26",
+        "rgb": [100, 191, 38]
+      }
     },
     "expansion": {
       "full": "Caylion Collaborative",
       "emoji":"<:caylion_collaborative:973994842172555284>",
-      "exclusion": "no-caylion-collaborative"
+      "exclusion": "no-caylion-collaborative",
+      "color": {
+        "hex": "008536",
+        "rgb": [0, 133, 54]
+      }
     }
   },
   {
@@ -30,13 +46,21 @@
       "full": "Kjasjavikalimm",
       "short": ["Kjas"],
       "emoji":"<:kjas:973968215262781460>",
-      "exclusion": "no-kjas"
+      "exclusion": "no-kjas",
+      "color": {
+        "hex": "EA1006",
+        "rgb": [234, 16, 6]
+      }
     },
     "expansion": {
       "full": "Kjasjavikalimm Independent Nations",
       "short": ["Kjas Independent Nations", "Kjas Independents", "Kjas Independence"],
       "emoji":"<:kjas_independent_nations:973994842663301180>",
-      "exclusion": "no-kjas-independent-nations"
+      "exclusion": "no-kjas-independent-nations",
+      "color": {
+        "hex": "FF452A",
+        "rgb": [255, 69, 2]
+      }
     }
   },
   {
@@ -44,75 +68,123 @@
       "full": "Faderan",
       "short": ["Fade"],
       "emoji":"<:faderan:973968175848882186>",
-      "exclusion": "no-faderan"
+      "exclusion": "no-faderan",
+      "color": {
+        "hex": "FEFF2A",
+        "rgb": [254, 255, 42]
+      }
     },
     "expansion": {
       "full": "Society of Falling Light",
       "short": ["Falling Light"],
       "emoji":"<:faderan_society_of_falling_light:973994842541674516>",
-      "exclusion": "no--falling-light"
+      "exclusion": "no-falling-light",
+      "color": {
+        "hex": "B19A00",
+        "rgb": [177, 154, 0]
+      }
     }
   },
   {
     "base": {
       "full": "Im'dril",
       "emoji":"<:imdril:973968194974933053>",
-      "exclusion": "no-imdril"
+      "exclusion": "no-imdril",
+      "color": {
+        "hex": "73BCF3",
+        "rgb": [115, 188, 243]
+      }
     },
     "expansion": {
       "full": "Grand Fleet",
       "short": ["Grand Fleet", "Im'dril Grand Fleet"],
       "emoji":"<:imdril_grand_fleet:973994842512293908>",
-      "exclusion": "no-grand-fleet"
+      "exclusion": "no-grand-fleet",
+      "color": {
+        "hex": "0091F8",
+        "rgb": [0, 145, 248]
+      }
     }
   },
   {
     "base": {
       "full": "Eni Et",
       "emoji":"<:eni_et:973967900757090305>",
-      "exclusion": "no-eni-et"
+      "exclusion": "no-eni-et",
+      "color": {
+        "hex": "5575D8",
+        "rgb": [85, 117, 216]
+      }
     },
     "expansion": {
       "full": "Eni Et Engineers",
       "emoji":"<:eni_et_engineers:973994842365493298>",
-      "exclusion": "no-eni-et-engineers"
+      "exclusion": "no-eni-et-engineers",
+      "color": {
+        "hex": "0051C6",
+        "rgb": [0, 81, 198]
+      }
     }
   },
   {
     "base": {
       "full": "Unity",
       "emoji":"<:unity:973968273282592788>",
-      "exclusion": "no-unity"
+      "exclusion": "no-unity",
+      "color": {
+        "hex": "9B9192",
+        "rgb": [155, 145, 146]
+      }
     },
     "expansion": {
       "full": "Deep Unity",
       "emoji":"<:deep_unity:973994842306793574>",
-      "exclusion": "no-deep-unity"
+      "exclusion": "no-deep-unity",
+      "color": {
+        "hex": "839389",
+        "rgb": [131, 147, 137]
+      }
     }
   },
   {
     "base": {
       "full": "Yengii",
       "emoji":"<:yengii:973968291259351041>",
-      "exclusion": "no-yengii"
+      "exclusion": "no-yengii",
+      "color": {
+        "hex": "090746",
+        "rgb": [9, 7, 70]
+      }
     },
     "expansion": {
       "full": "Yengii Ji",
       "emoji":"<:yengii_jii:973994842390687744>",
-      "exclusion": "no-yengii-jii"
+      "exclusion": "no-yengii-jii",
+      "color": {
+        "hex": "374CE5",
+        "rgb": [55, 76, 229]
+      }
     }
   },
   {
     "base": {
       "full": "Zeth",
       "emoji":"<:zeth:973968307969458239>",
-      "exclusion": "no-zeth"
+      "exclusion": "no-zeth",
+      "color": {
+        "hex": "DF0B71",
+        "rgb": [223, 11, 113]
+      }
     },
     "expansion": {
       "full": "Charity Syndicate",
       "short": ["Zeth Charity"],
       "emoji":"<:zeth_charity_syndicate:973994842575220776>",
-      "exclusion": "no-zeth-charity"
+      "exclusion": "no-zeth-charity",
+      "color": {
+        "hex": "9926A5",
+        "rgb": [153, 38, 165]
+      }
     }
   }
 ]
