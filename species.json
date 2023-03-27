@@ -9,7 +9,8 @@
       "color": {
         "hex": "F47109",
         "rgb": [244, 113, 9]
-      }
+      },
+      "impact": 0
     },
     "expansion": {
       "full": "KT’ZR’KT’RTL Technophiles",
@@ -20,7 +21,8 @@
       "color": {
         "hex": "FE7B37",
         "rgb": [254, 123, 55]
-      }
+      },
+      "impact": 1
     }
   },
   {
@@ -32,7 +34,8 @@
       "color": {
         "hex": "64BF26",
         "rgb": [100, 191, 38]
-      }
+      },
+      "impact": 0
     },
     "expansion": {
       "full": "Caylion Collaborative",
@@ -42,7 +45,8 @@
       "color": {
         "hex": "008536",
         "rgb": [0, 133, 54]
-      }
+      },
+      "impact": 0
     }
   },
   {
@@ -55,7 +59,8 @@
       "color": {
         "hex": "EA1006",
         "rgb": [234, 16, 6]
-      }
+      },
+      "impact": 3
     },
     "expansion": {
       "full": "Kjasjavikalimm Independent Nations",
@@ -66,7 +71,8 @@
       "color": {
         "hex": "FF452A",
         "rgb": [255, 69, 2]
-      }
+      },
+      "impact": 0
     }
   },
   {
@@ -79,7 +85,8 @@
       "color": {
         "hex": "FEFF2A",
         "rgb": [254, 255, 42]
-      }
+      },
+      "impact": 0
     },
     "expansion": {
       "full": "Society of Falling Light",
@@ -90,7 +97,8 @@
       "color": {
         "hex": "B19A00",
         "rgb": [177, 154, 0]
-      }
+      },
+      "impact": 2
     }
   },
   {
@@ -102,7 +110,8 @@
       "color": {
         "hex": "73BCF3",
         "rgb": [115, 188, 243]
-      }
+      },
+      "impact": 0
     },
     "expansion": {
       "full": "Grand Fleet",
@@ -113,7 +122,8 @@
       "color": {
         "hex": "0091F8",
         "rgb": [0, 145, 248]
-      }
+      },
+      "impact": 0
     }
   },
   {
@@ -125,7 +135,8 @@
       "color": {
         "hex": "5575D8",
         "rgb": [85, 117, 216]
-      }
+      },
+      "impact": 1
     },
     "expansion": {
       "full": "Eni Et Engineers",
@@ -135,7 +146,8 @@
       "color": {
         "hex": "0051C6",
         "rgb": [0, 81, 198]
-      }
+      },
+      "impact": 0
     }
   },
   {
@@ -147,7 +159,8 @@
       "color": {
         "hex": "9B9192",
         "rgb": [155, 145, 146]
-      }
+      },
+      "impact": 0
     },
     "expansion": {
       "full": "Deep Unity",
@@ -157,7 +170,8 @@
       "color": {
         "hex": "839389",
         "rgb": [131, 147, 137]
-      }
+      },
+      "impact": 0
     }
   },
   {
@@ -169,7 +183,8 @@
       "color": {
         "hex": "090746",
         "rgb": [9, 7, 70]
-      }
+      },
+      "impact": 0
     },
     "expansion": {
       "full": "Yengii Ji",
@@ -179,7 +194,8 @@
       "color": {
         "hex": "374CE5",
         "rgb": [55, 76, 229]
-      }
+      },
+      "impact": 2
     }
   },
   {
@@ -191,7 +207,8 @@
       "color": {
         "hex": "DF0B71",
         "rgb": [223, 11, 113]
-      }
+      },
+      "impact": 2
     },
     "expansion": {
       "full": "Charity Syndicate",
@@ -202,7 +219,8 @@
       "color": {
         "hex": "9926A5",
         "rgb": [153, 38, 165]
-      }
+      },
+      "impact": 1
     }
   }
 ]
