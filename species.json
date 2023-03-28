@@ -2,225 +2,888 @@
   {
     "base": {
       "full": "KT’ZR’KT’RTL",
-      "short": ["Kit", "K't"],
+      "short": [
+        "Kit",
+        "K't"
+      ],
       "abbreviation": "KA",
       "emoji": "<:kit:973968075655356476>",
       "exclusion": "no-kit",
       "color": {
         "hex": "F47109",
-        "rgb": [244, 113, 9]
+        "rgb": [
+          244,
+          113,
+          9
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 5,
+        "brown": 0,
+        "white": 0,
+        "black": 0,
+        "blue": 0,
+        "yellow": 2,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 1,
+        "brown": 2,
+        "white": 1,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 3,
+          "brown": 3,
+          "white": 2,
+          "black": 1,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 1
+        },
+        "colonies": 1,
+        "research": 1
+      }
     },
     "expansion": {
       "full": "KT’ZR’KT’RTL Technophiles",
-      "short": ["Kit Technophiles", "K't Technophiles"],
+      "short": [
+        "Kit Technophiles",
+        "K't Technophiles"
+      ],
       "abbreviation": "KT",
       "emoji": "<:kit_technophiles:973994842571047022>",
       "exclusion": "no-kit-technophiles",
       "color": {
         "hex": "FE7B37",
-        "rgb": [254, 123, 55]
+        "rgb": [
+          254,
+          123,
+          55
+        ]
       },
-      "impact": 1
+      "impact": 1,
+      "consumes": {
+        "green": 3,
+        "brown": 0,
+        "white": 0,
+        "black": 0,
+        "blue": 0,
+        "yellow": 2,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 1,
+        "brown": 1,
+        "white": 0,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 2,
+          "brown": 1,
+          "white": 0,
+          "black": 1,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 1
+        },
+        "colonies": 1,
+        "research": 1
+      }
     }
   },
   {
     "base": {
       "full": "Caylion",
       "abbreviation": "CP",
-      "emoji":"<:caylion:973967848634474556>",
+      "emoji": "<:caylion:973967848634474556>",
       "exclusion": "no-caylion",
       "color": {
         "hex": "64BF26",
-        "rgb": [100, 191, 38]
+        "rgb": [
+          100,
+          191,
+          38
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 2,
+        "brown": 0,
+        "white": 0,
+        "black": 1,
+        "blue": 2,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 3,
+        "brown": 2,
+        "white": 3,
+        "black": 1,
+        "blue": 1,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "start": {
+        "resources": {
+          "green": 5,
+          "brown": 2,
+          "white": 4,
+          "black": 2,
+          "blue": 0,
+          "yellow": 0,
+          "ultratech": 0
+        },
+        "colonies": 1,
+        "research": 0
+      }
     },
     "expansion": {
       "full": "Caylion Collaborative",
       "abbreviation": "CC",
-      "emoji":"<:caylion_collaborative:973994842172555284>",
+      "emoji": "<:caylion_collaborative:973994842172555284>",
       "exclusion": "no-caylion-collaborative",
       "color": {
         "hex": "008536",
-        "rgb": [0, 133, 54]
+        "rgb": [
+          0,
+          133,
+          54
+        ]
       },
-      "impact": 0
+      "impact": 3,
+      "consumes": {
+        "green": 2,
+        "brown": 0,
+        "white": 0,
+        "black": 2,
+        "blue": 1,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 1,
+        "brown": 3,
+        "white": 2,
+        "black": 1,
+        "blue": 1,
+        "yellow": 2,
+        "ultratech": 0
+      },
+      "start": {
+        "resources": {
+          "green": 2,
+          "brown": 2,
+          "white": 3,
+          "black": 1,
+          "blue": 1,
+          "yellow": 0,
+          "ultratech": 0
+        },
+        "colonies": 0,
+        "research": 1
+      }
     }
   },
   {
     "base": {
       "full": "Kjasjavikalimm",
-      "short": ["Kjas"],
+      "short": [
+        "Kjas"
+      ],
       "abbreviation": "KD",
-      "emoji":"<:kjas:973968215262781460>",
+      "emoji": "<:kjas:973968215262781460>",
       "exclusion": "no-kjas",
       "color": {
         "hex": "EA1006",
-        "rgb": [234, 16, 6]
+        "rgb": [
+          234,
+          16,
+          6
+        ]
       },
-      "impact": 3
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 4,
+        "white": 0,
+        "black": 0,
+        "blue": 2,
+        "yellow": 3,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 1,
+        "brown": 2,
+        "white": 1,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 0
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 2,
+          "white": 1,
+          "black": 2,
+          "blue": 1,
+          "yellow": 2,
+          "ultratech": 0
+        },
+        "colonies": 2,
+        "research": 0
+      }
     },
     "expansion": {
       "full": "Kjasjavikalimm Independent Nations",
-      "short": ["Kjas Independent Nations", "Kjas Independents", "Kjas Independence"],
+      "short": [
+        "Kjas Independent Nations",
+        "Kjas Independents",
+        "Kjas Independence"
+      ],
       "abbreviation": "KI",
-      "emoji":"<:kjas_independent_nations:973994842663301180>",
+      "emoji": "<:kjas_independent_nations:973994842663301180>",
       "exclusion": "no-kjas-independent-nations",
       "color": {
         "hex": "FF452A",
-        "rgb": [255, 69, 2]
+        "rgb": [
+          255,
+          69,
+          2
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 3,
+        "white": 0,
+        "black": 0,
+        "blue": 2,
+        "yellow": 3,
+        "ultratech": 0,
+        "large": 1,
+        "small": 2
+      },
+      "produces": {
+        "green": 2,
+        "brown": 2,
+        "white": 3,
+        "black": 2,
+        "blue": 2,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 3,
+          "brown": 2,
+          "white": 1,
+          "black": 1,
+          "blue": 1,
+          "yellow": 2,
+          "ultratech": 0
+        },
+        "colonies": 2,
+        "research": 1
+      }
     }
   },
   {
     "base": {
       "full": "Faderan",
-      "short": ["Fade"],
+      "short": [
+        "Fade"
+      ],
       "abbreviation": "FC",
-      "emoji":"<:faderan:973968175848882186>",
+      "emoji": "<:faderan:973968175848882186>",
       "exclusion": "no-faderan",
       "color": {
         "hex": "FEFF2A",
-        "rgb": [254, 255, 42]
+        "rgb": [
+          254,
+          255,
+          42
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 3,
+        "brown": 2,
+        "white": 8,
+        "black": 0,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 2,
+        "brown": 2,
+        "white": 2,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 0,
+          "brown": 1,
+          "white": 3,
+          "black": 0,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 1
+        },
+        "colonies": 1,
+        "research": 1
+      }
     },
     "expansion": {
       "full": "Society of Falling Light",
-      "short": ["Falling Light"],
+      "short": [
+        "Falling Light"
+      ],
       "abbreviation": "FL",
-      "emoji":"<:faderan_society_of_falling_light:973994842541674516>",
+      "emoji": "<:faderan_society_of_falling_light:973994842541674516>",
       "exclusion": "no-falling-light",
       "color": {
         "hex": "B19A00",
-        "rgb": [177, 154, 0]
+        "rgb": [
+          177,
+          154,
+          0
+        ]
       },
-      "impact": 2
+      "impact": 2,
+      "consumes": {
+        "green": 5,
+        "brown": 4,
+        "white": 5,
+        "black": 0,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 2,
+        "brown": 1,
+        "white": 3,
+        "black": 2,
+        "blue": 2,
+        "yellow": 3,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 3,
+          "brown": 2,
+          "white": 3,
+          "black": 2,
+          "blue": 2,
+          "yellow": 2,
+          "ultratech": 1
+        },
+        "colonies": 3,
+        "research": 1
+      }
     }
   },
   {
     "base": {
       "full": "Im'dril",
       "abbreviation": "IN",
-      "emoji":"<:imdril:973968194974933053>",
+      "emoji": "<:imdril:973968194974933053>",
       "exclusion": "no-imdril",
       "color": {
         "hex": "73BCF3",
-        "rgb": [115, 188, 243]
+        "rgb": [
+          115,
+          188,
+          243
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 4,
+        "white": 0,
+        "black": 2,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 2
+      },
+      "produces": {
+        "green": 3,
+        "brown": 3,
+        "white": 3,
+        "black": 2,
+        "blue": 4,
+        "yellow": 4,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 2,
+          "brown": 3,
+          "white": 2,
+          "black": 1,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 1
+        },
+        "colonies": 0,
+        "research": 1
+      }
     },
     "expansion": {
       "full": "Grand Fleet",
-      "short": ["Grand Fleet", "Im'dril Grand Fleet"],
+      "short": [
+        "Grand Fleet",
+        "Im'dril Grand Fleet"
+      ],
       "abbreviation": "IG",
-      "emoji":"<:imdril_grand_fleet:973994842512293908>",
+      "emoji": "<:imdril_grand_fleet:973994842512293908>",
       "exclusion": "no-grand-fleet",
       "color": {
         "hex": "0091F8",
-        "rgb": [0, 145, 248]
+        "rgb": [
+          0,
+          145,
+          248
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 2,
+        "white": 0,
+        "black": 2,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 2,
+        "brown": 1,
+        "white": 1,
+        "black": 1,
+        "blue": 1,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "start": {
+        "resources": {
+          "green": 5,
+          "brown": 3,
+          "white": 4,
+          "black": 2,
+          "blue": 3,
+          "yellow": 2,
+          "ultratech": 2
+        },
+        "colonies": 0,
+        "research": 1
+      }
     }
   },
   {
     "base": {
       "full": "Eni Et",
       "abbreviation": "EA",
-      "emoji":"<:eni_et:973967900757090305>",
+      "emoji": "<:eni_et:973967900757090305>",
       "exclusion": "no-eni-et",
       "color": {
         "hex": "5575D8",
-        "rgb": [85, 117, 216]
+        "rgb": [
+          85,
+          117,
+          216
+        ]
       },
-      "impact": 1
+      "impact": 1,
+      "consumes": {
+        "green": 0,
+        "brown": 0,
+        "white": 5,
+        "black": 0,
+        "blue": 2,
+        "yellow": 0,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 2,
+        "brown": 1,
+        "white": 5,
+        "black": 1,
+        "blue": 1,
+        "yellow": 0,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 2,
+          "white": 2,
+          "black": 1,
+          "blue": 0,
+          "yellow": 0,
+          "ultratech": 0
+        },
+        "colonies": 1,
+        "research": 0
+      }
     },
     "expansion": {
       "full": "Eni Et Engineers",
       "abbreviation": "EE",
-      "emoji":"<:eni_et_engineers:973994842365493298>",
+      "emoji": "<:eni_et_engineers:973994842365493298>",
       "exclusion": "no-eni-et-engineers",
       "color": {
         "hex": "0051C6",
-        "rgb": [0, 81, 198]
+        "rgb": [
+          0,
+          81,
+          198
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 0,
+        "white": 4,
+        "black": 0,
+        "blue": 2,
+        "yellow": 0,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 1,
+        "brown": 2,
+        "white": 2,
+        "black": 1,
+        "blue": 1,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "start": {
+        "resources": {
+          "green": 0,
+          "brown": 0,
+          "white": 1,
+          "black": 0,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 1
+        },
+        "colonies": 1,
+        "research": 0
+      }
     }
   },
   {
     "base": {
       "full": "Unity",
       "abbreviation": "U",
-      "emoji":"<:unity:973968273282592788>",
+      "emoji": "<:unity:973968273282592788>",
       "exclusion": "no-unity",
       "color": {
         "hex": "9B9192",
-        "rgb": [155, 145, 146]
+        "rgb": [
+          155,
+          145,
+          146
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 0,
+        "white": 0,
+        "black": 0,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0,
+          "large": 3,
+          "small": 4
+      },
+      "produces": {
+        "green": 0,
+        "brown": 0,
+        "white": 0,
+        "black": 0,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0,
+          "large": 3,
+          "small": 4
+      },
+      "start": {
+        "resources": {
+          "green": 0,
+          "brown": 0,
+          "white": 0,
+          "black": 0,
+          "blue": 0,
+          "yellow": 0,
+          "ultratech": 1,
+          "large": 3,
+          "small": 4
+        },
+        "colonies": 1,
+        "research": 1
+      }
     },
     "expansion": {
       "full": "Deep Unity",
       "abbreviation": "DU",
-      "emoji":"<:deep_unity:973994842306793574>",
+      "emoji": "<:deep_unity:973994842306793574>",
       "exclusion": "no-deep-unity",
       "color": {
         "hex": "839389",
-        "rgb": [131, 147, 137]
+        "rgb": [
+          131,
+          147,
+          137
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 0,
+        "brown": 0,
+        "white": 0,
+        "black": 0,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 0,
+        "brown": 0,
+        "white": 0,
+        "black": 0,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0,
+        "large": 1,
+        "small": 1
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 1,
+          "white": 1,
+          "black": 1,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 0,
+          "large": 1,
+          "small": 1
+        },
+        "colonies": 0,
+        "research": 1
+      }
     }
   },
   {
     "base": {
       "full": "Yengii",
       "abbreviation": "YS",
-      "emoji":"<:yengii:973968291259351041>",
+      "emoji": "<:yengii:973968291259351041>",
       "exclusion": "no-yengii",
       "color": {
         "hex": "090746",
-        "rgb": [9, 7, 70]
+        "rgb": [
+          9,
+          7,
+          70
+        ]
       },
-      "impact": 0
+      "impact": 0,
+      "consumes": {
+        "green": 2,
+        "brown": 2,
+        "white": 2,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 3,
+        "brown": 3,
+        "white": 2,
+        "black": 2,
+        "blue": 2,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 1,
+          "white": 1,
+          "black": 1,
+          "blue": 1,
+          "yellow": 2,
+          "ultratech": 1
+        },
+        "colonies": 1,
+        "research": 1
+      }
     },
     "expansion": {
       "full": "Yengii Ji",
       "abbreviation": "YJ",
-      "emoji":"<:yengii_jii:973994842390687744>",
+      "emoji": "<:yengii_jii:973994842390687744>",
       "exclusion": "no-yengii-jii",
       "color": {
         "hex": "374CE5",
-        "rgb": [55, 76, 229]
+        "rgb": [
+          55,
+          76,
+          229
+        ]
       },
-      "impact": 2
+      "impact": 2,
+      "consumes": {
+        "green": 1,
+        "brown": 1,
+        "white": 1,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "produces": {
+        "green": 2,
+        "brown": 3,
+        "white": 2,
+        "black": 1,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 2,
+          "white": 1,
+          "black": 2,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 0
+        },
+        "colonies": 1,
+        "research": 0
+      }
     }
   },
   {
     "base": {
       "full": "Zeth",
       "abbreviation": "ZA",
-      "emoji":"<:zeth:973968307969458239>",
+      "emoji": "<:zeth:973968307969458239>",
       "exclusion": "no-zeth",
       "color": {
         "hex": "DF0B71",
-        "rgb": [223, 11, 113]
+        "rgb": [
+          223,
+          11,
+          113
+        ]
       },
-      "impact": 2
+      "impact": 2,
+      "consumes": {
+        "green": 0,
+        "brown": 0,
+        "white": 6,
+        "black": 2,
+        "blue": 0,
+        "yellow": 2,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 0,
+        "brown": 1,
+        "white": 0,
+        "black": 2,
+        "blue": 1,
+        "yellow": 1,
+        "ultratech": 1
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 0,
+          "white": 1,
+          "black": 2,
+          "blue": 2,
+          "yellow": 1,
+          "ultratech": 0
+        },
+        "colonies": 0,
+        "research": 1
+      }
     },
     "expansion": {
       "full": "Charity Syndicate",
-      "short": ["Zeth Charity"],
+      "short": [
+        "Zeth Charity"
+      ],
       "abbreviation": "ZC",
-      "emoji":"<:zeth_charity_syndicate:973994842575220776>",
+      "emoji": "<:zeth_charity_syndicate:973994842575220776>",
       "exclusion": "no-zeth-charity",
       "color": {
         "hex": "9926A5",
-        "rgb": [153, 38, 165]
+        "rgb": [
+          153,
+          38,
+          165
+        ]
       },
-      "impact": 1
+      "impact": 1,
+      "consumes": {
+        "green": 0,
+        "brown": 0,
+        "white": 2,
+        "black": 2,
+        "blue": 0,
+        "yellow": 2,
+        "ultratech": 0
+      },
+      "produces": {
+        "green": 2,
+        "brown": 2,
+        "white": 2,
+        "black": 3,
+        "blue": 0,
+        "yellow": 0,
+        "ultratech": 0
+      },
+      "start": {
+        "resources": {
+          "green": 1,
+          "brown": 2,
+          "white": 2,
+          "black": 1,
+          "blue": 1,
+          "yellow": 1,
+          "ultratech": 0
+        },
+        "colonies": 0,
+        "research": 1
+      }
     }
   }
 ]
