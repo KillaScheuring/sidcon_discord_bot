@@ -1,6 +1,6 @@
 from discord import ui, Interaction, ButtonStyle
 from discord.ui.button import Button
-from assign_players import list_factions
+from sidcon_classes import species_list
 
 
 def determine_button_values(faction, faction_excluded):
