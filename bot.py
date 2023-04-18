@@ -9,7 +9,7 @@ from datetime import timezone
 from assign_players import random_assignment, structure_assignments, get_current_assignments, list_factions
 from final_scores_processing import get_final_scores, structure_response, report_to_sheet
 from manage_roles import find_role, emoji_to_exclusion
-from exclusion_questionnaire import ExclusionQuestionnaire
+from exclusion_questionnaire import ExclusionSettings
 
 # Get token from env
 load_dotenv()
@@ -26,7 +26,7 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
 
-@tree.command(name="no", description="Adds a role to keep user from being assigned that faction", guild=discord.Object(id=934254109605908600))
+@tree.command(name="exclude", description="Adds a role to keep user from being assigned that faction", guild=discord.Object(id=934254109605908600))
 # @app_commands.describe(faction="The faction to exclude")
 # async def assign_exclusion(interaction: Interaction, faction: str):
 async def assign_exclusion(interaction: Interaction):
@@ -34,7 +34,8 @@ async def assign_exclusion(interaction: Interaction):
     :param interaction:
     :return:
     """
-    await interaction.response.send_message(view=ExclusionQuestionnaire(), ephemeral=True)
+
+    await interaction.response.send_message(view=ExclusionSettings(interaction.user), ephemeral=True)
 
 
 @client.event
