@@ -70,6 +70,12 @@ class Species:
 
 
 class SpeciesList(list[Species]):
+    def __init__(self):
+        super().__init__()
+        with open("species.json", "r") as species_file:
+            for species in json.load(species_file):
+                self.append(Species(**species))
+
     def find_faction(self,
                      fullname: str | None = None, shortname: str | None = None,
                      abbreviation: str | None = None, emoji: str | None = None,
@@ -114,11 +120,17 @@ class SpeciesList(list[Species]):
                 self.remove(race)
                 return
 
+    def factions(self):
+        """
+        Returns the list of all factions base and expansion
+        :return: list[Faction]
+        """
+        factions = []
+        for species in self:
+            factions.append(species.base)
+            factions.append(species.expansion)
+        return factions
 
-with open("species.json", "r") as species_file:
-    species_list = SpeciesList()
-    for species in json.load(species_file):
-        species_list.append(Species(**species))
 
 if __name__ == '__main__':
     # print(str(species_list[0].base))
@@ -129,5 +141,6 @@ if __name__ == '__main__':
     # species_list.remove_by_faction(abbreviation="FL")
     # species_list.remove_by_faction(emoji="<:imdril:973968194974933053>")
     # species_list.remove_by_faction(exclusion_role="no-eni-et-engineers")
+    species_list = SpeciesList()
     print(len(species_list))
     print([str(species) for species in species_list])
