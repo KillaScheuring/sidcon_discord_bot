@@ -26,9 +26,7 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
 
-@tree.command(name="exclude", description="Adds a role to keep user from being assigned that faction", guild=discord.Object(id=934254109605908600))
-# @app_commands.describe(faction="The faction to exclude")
-# async def assign_exclusion(interaction: Interaction, faction: str):
+@tree.command(name="exclude", description="Adds a role to keep user from being assigned that faction")
 async def assign_exclusion(interaction: Interaction):
     """
     :param interaction:
