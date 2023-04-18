@@ -38,7 +38,7 @@ async def assign_exclusion(interaction: Interaction):
 
 @client.event
 async def on_ready():
-    await tree.sync(guild=discord.Object(id=934254109605908600))
+    await tree.sync()
     print("Ready")
 
 # @bot.event
