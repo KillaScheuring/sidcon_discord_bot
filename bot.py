@@ -9,7 +9,7 @@ from datetime import timezone
 from assign_players import random_assignment, structure_assignments, get_current_assignments, list_factions
 from final_scores_processing import get_final_scores, structure_response, report_to_sheet
 from manage_roles import find_role, emoji_to_exclusion
-from exclusion_questionnaire import ExclusionSettings
+from exclusion_settings import ExclusionSettings
 
 # Get token from env
 load_dotenv()
