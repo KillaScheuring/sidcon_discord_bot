@@ -1,5 +1,6 @@
 import math
 from discord import ui, Interaction, ButtonStyle, Member
+import discord.errors
 from discord.ui.button import Button
 from sidcon_classes import SpeciesList
 
@@ -36,6 +37,7 @@ class ExclusionSettings(ui.View):
             role = [role for role in self.member.guild.roles if role.name == faction.exclusion_role][0]
         except IndexError:
             role = None
+
         if not role:
             return False
 
@@ -59,16 +61,16 @@ class FactionButton(Button):
         return self.parent.factions_excluded[self.faction.name]
 
     async def callback(self, interaction: Interaction):
-        update_successful = False
         try:
-            update_successful = await self.parent.update_role(self.faction)
+            await self.parent.update_role(self.faction)
             # Update the style to match the value
             label, style = determine_button_values(self.faction.name, self.check_role())
             self.style = style
             self.label = label
-        except:
+        except discord.errors.Forbidden as e:
+            await interaction.response.edit_message(content=f'Error updating {self.faction.name}: {e.text}', view=self.parent)
+            print(e)
+        except discord.errors.InteractionResponded as e:
             pass
-        if update_successful:
-            await interaction.response.edit_message(content=f'{self.faction.name} updated!', view=self.parent)
         else:
-            await interaction.response.edit_message(content=f'Error updating {self.faction.name}!', view=self.parent)
+            await interaction.response.edit_message(content=f'{self.faction.name} updated!', view=self.parent)
