@@ -26,6 +26,7 @@ class AssignmentInteraction(ui.View):
             "yellow": 0,
             "ultratech": 0
         }
+        self.factions = factions
         for faction in factions:
             self.impact += faction.impact
             for resource in self.consumption:
@@ -34,18 +35,22 @@ class AssignmentInteraction(ui.View):
 
     @ui.button(label="Impact")
     async def impact_callback(self, interaction: Interaction, button):
+        """
+        Returns the impact of the assignment in an ephemeral message
+        :param interaction:
+        :param button:
+        :return:
+        """
         await interaction.response.send_message(content=f"Impact is {self.impact}", ephemeral=True)
 
     @ui.button(label="Resources")
     async def resource_callback(self, interaction: Interaction, button):
         """
-
+        Returns the number of factions that consume and produce each resource in an ephemeral message
         :param interaction:
         :param button:
         :return:
         """
-        "Consumers: 1 white"
-        "Producers: 1 white"
         consumer_message = []
         producer_message = []
         for resource in resource_emoji_dict:
@@ -54,3 +59,16 @@ class AssignmentInteraction(ui.View):
         consumer_message = "; ".join(consumer_message)
         producer_message = "; ".join(producer_message)
         await interaction.response.send_message(content=f"{consumer_message}\n{producer_message}", ephemeral=True)
+
+    @ui.button(label="Score")
+    async def score_callback(self, interaction: Interaction, button):
+        """
+        Returns an ephemeral message with a template for final score recording
+        :param interaction:
+        :param button:
+        :return:
+        """
+        scoring_template = []
+        for faction in self.factions:
+            scoring_template.append(f"{faction.emoji} - ")
+        await interaction.response.send_message(content="\n".join(scoring_template), ephemeral=True)
