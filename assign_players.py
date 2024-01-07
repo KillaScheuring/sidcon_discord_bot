@@ -220,9 +220,7 @@ def random_assignment(players, bifurcation_limit=None, impact_limit=None, curren
             available_species.remove_by_faction(player_selection)
             current_player_assignment[player] = player_selection
 
-    assignments = {player: (faction.name, faction.emoji) for player, faction in current_player_assignment.items()}
-    total_impact = sum(faction.impact for faction in current_player_assignment.values())
-    return assignments, total_impact
+    return current_player_assignment
 
 
 def structure_assignments(assignments):
@@ -230,6 +228,7 @@ def structure_assignments(assignments):
     :param assignments: The dictionary of player assignments
     :return:
     """
+    assignments = {player: (faction.name, faction.emoji) for player, faction in assignments.items()}
     return "Assignments!\n" + \
            "\n".join([
                f"{player} - {emoji} {faction}" for player, (faction, emoji)

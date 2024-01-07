@@ -2,6 +2,16 @@ import json
 import enum
 from pprint import pprint
 
+resource_emoji_dict = {
+    "green": "<:green_cube:1122249567044374729>",
+    "brown": "<:brown_cube:1122249460060274739>",
+    "white": "<:white_cube:1122249631733141514>",
+    "black": "<:black_cube:1122249185324961904>",
+    "blue": "<:blue_cube:1122249285950521404>",
+    "yellow": "<:yellow_cube:1122249354464481291>",
+    "ultratech": "<:ultratech:1122249417681031321>",
+}
+
 
 class Versions(enum.Enum):
     Base = "base"
@@ -27,6 +37,20 @@ class Resources:
         self.ultratech = ultratech
         self.large = large
         self.small = small
+        self.all = {
+            "green": green,
+            "brown": brown,
+            "white": white,
+            "black": black,
+            "blue": blue,
+            "yellow": yellow,
+            "ultratech": ultratech,
+            "large": large,
+            "small": small,
+        }
+
+    def __getitem__(self, item):
+        return self.all[item]
 
 
 class StartCard:

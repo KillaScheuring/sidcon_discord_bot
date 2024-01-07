@@ -11,6 +11,7 @@ from assign_players import random_assignment, structure_assignments, get_current
 from final_scores_processing import get_final_scores, structure_response, report_to_sheet
 from manage_roles import find_role, emoji_to_exclusion
 from exclusion_settings import ExclusionSettings
+from assignment_interaction import AssignmentInteraction
 
 # Get token from env
 load_dotenv()
@@ -113,12 +114,12 @@ async def process_assignment(interaction: Interaction,
 
     current_assignments, player_exclusions = get_current_assignments(interaction, assignments)
 
-    await interaction.response.send_message(structure_assignments(
-        random_assignment(list(current_assignments.keys()),
-                          bifurcation_limit, impact_limit, current_assignments,
-                          player_exclusions)
-    ), ephemeral=True
-    )
+    new_assignments = random_assignment(list(current_assignments.keys()),
+                                        bifurcation_limit, impact_limit, current_assignments,
+                                        player_exclusions)
+    await interaction.response.send_message(structure_assignments(new_assignments),
+                                            view=AssignmentInteraction(list(new_assignments.values())),
+                                            ephemeral=True)
 
 
 @client.event
