@@ -1,7 +1,7 @@
 [
   {
     "base": {
-      "full": "KT’ZR’KT’RTL",
+      "full": "KT'ZR'KT'RTL Adhocracy",
       "short": [
         "Kit",
         "K't"
@@ -51,7 +51,7 @@
       }
     },
     "expansion": {
-      "full": "KT’ZR’KT’RTL Technophiles",
+      "full": "KT'ZR'KT'RTL Technophiles",
       "short": [
         "Kit Technophiles",
         "K't Technophiles"
@@ -103,7 +103,7 @@
   },
   {
     "base": {
-      "full": "Caylion",
+      "full": "Caylion Plutocracy",
       "abbreviation": "CP",
       "emoji": "<:caylion:973967848634474556>",
       "exclusion": "no-caylion",
@@ -197,7 +197,7 @@
   },
   {
     "base": {
-      "full": "Kjasjavikalimm",
+      "full": "Kjasjavikalimm Directorate",
       "short": [
         "Kjas"
       ],
@@ -301,7 +301,7 @@
   },
   {
     "base": {
-      "full": "Faderan",
+      "full": "Faderan Conclave",
       "short": [
         "Fade"
       ],
@@ -401,7 +401,7 @@
   },
   {
     "base": {
-      "full": "Im'dril",
+      "full": "Im'dril Nomads",
       "abbreviation": "IN",
       "emoji": "<:imdril:973968194974933053>",
       "exclusion": "no-imdril",
@@ -499,7 +499,7 @@
   },
   {
     "base": {
-      "full": "Eni Et",
+      "full": "Eni Et Ascendency",
       "abbreviation": "EA",
       "emoji": "<:eni_et:973967900757090305>",
       "exclusion": "no-eni-et",
@@ -697,7 +697,7 @@
   },
   {
     "base": {
-      "full": "Yengii",
+      "full": "Yengii Society",
       "abbreviation": "YS",
       "emoji": "<:yengii:973968291259351041>",
       "exclusion": "no-yengii",
@@ -791,7 +791,7 @@
   },
   {
     "base": {
-      "full": "Zeth",
+      "full": "Zeth Anocracy",
       "abbreviation": "ZA",
       "emoji": "<:zeth:973968307969458239>",
       "exclusion": "no-zeth",

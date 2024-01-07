@@ -3,6 +3,11 @@ from random import choice
 from math import floor
 import json
 from discord.message import Message
+from discord.utils import get
+from discord.client import Client
+from discord import Interaction, Member
+import re
+from sidcon_classes import SpeciesList
 
 
 def open_species():
@@ -55,7 +60,7 @@ def format_player_selection(faction):
     return faction.get("short", [faction.get("full")])[0], faction.get("emoji")
 
 
-def get_current_assignments(message):
+def get_current_assignments_2(message):
     """
 
     :param Message message:
@@ -81,115 +86,154 @@ def get_current_assignments(message):
     return assignments, exclusions
 
 
-def random_assignment(players, alternate_limit=None, current_player_assignment=None, player_exclusions=None):
+def get_current_assignments(interaction, current_assignments):
+    """
+    Collects each player's current assignment and
+    retrieves each user's exclusions
+    :param Interaction interaction:
+    :param list[str] current_assignments:
+    :return: dict, dict
+    """
+    exclusions = {}
+    assignments = {}
+
+    species_list = SpeciesList()
+
+    # Retrieve user's exclusions
+    for assignment in current_assignments:
+        assignment = re.sub("(\s+)(-)(\s+)", " - ", assignment + " ")
+        try:
+            player, faction = assignment.split(" - ")
+            faction = species_list.find_faction(any_ref=faction)
+        except ValueError:
+            player, faction = assignment.strip(), None
+
+        try:
+            user_mention = re.search("<@[0-9]+>", player).group()
+            user_id = re.search("[0-9]+", user_mention).group()
+            player = interaction.guild.get_member(int(user_id))
+        except AttributeError:
+            player = player
+
+        if type(player) == Member:
+            for role in player.roles:
+                if "no-" not in role.name:
+                    continue
+                exclusions.setdefault(f"<@{player.id}>", []).append(role.name)
+            player = f"<@{player.id}>"
+        assignments.setdefault(player, faction)
+
+    return assignments, exclusions
+
+
+def select_faction(exclusions, available_species, bifurcation_limit, impact_limit):
+    """
+    Selects an available faction for a player
+    :param exclusions: The list of player exclusions
+    :param SpeciesList available_species: The list of available species
+    :param bifurcation_limit: The current bifurcation limit
+    :param impact_limit: The current impact limit
+    :return: selection
+    """
+    player_options = []
+    for species in available_species:
+        # Add the expansion faction if it isn't in the players excluded factions
+        if species.expansion.exclusion_role not in exclusions:
+            player_options.append(species.expansion)
+
+        # Add the base faction if it isn't in the players excluded factions
+        if species.base.exclusion_role not in exclusions:
+            player_options.append(species.base)
+
+    # If there are no qualifying factions for this player, they'll receive a random assignment
+    if not player_options:
+        return None
+
+    for attempts in range(3):
+        player_selection = choice(player_options)
+        if (bifurcation_limit > 0 or player_selection.version == "base") \
+                and impact_limit - player_selection.impact > 0:
+            break
+
+    return choice(player_options)
+
+
+def random_assignment(players, bifurcation_limit=None, impact_limit=None, current_player_assignment=None,
+                      player_exclusions=None):
     """
     Assigns Sidereal Confluence factions to players
     :param list players: The list of players to assign factions to
-    :param int alternate_limit: The limit to how many alternate factions are in the game
+    :param int bifurcation_limit: The limit to how many alternate factions are in the game
+    :param int impact_limit: The limit to how much total impact the factions have
     :param dict current_player_assignment: The limit to how many alternate factions are in the game
     :param dict player_exclusions: The list of player faction exclusions
     :return dict: The assignments
     """
-    # If no alternate limit, set to a third of the players
-    if alternate_limit is None:
-        alternate_limit = floor(len(players) / 3)
+    # If no bifurcation limit, set to a third of the players
+    if bifurcation_limit is None:
+        bifurcation_limit = floor(len(players) / 3)
+
+    # If no impact limit, set to 3
+    if impact_limit is None:
+        impact_limit = 3
 
     # If no current players set to empty dictionary
     if current_player_assignment is None:
         current_player_assignment = {}
 
     # Remove species already assigned
-    sidcon_species = []
-    for faction in open_species():
-        # Check if base version of faction is already assigned
-        if faction.get("base", {}).get("emoji", "") in current_player_assignment.values():
+    available_species = SpeciesList()
+    for faction in current_player_assignment.values():
+        if not faction:
             continue
-
-        # Check if expansion version of faction is already assigned
-        if faction.get("expansion", {}).get("emoji", "") in current_player_assignment.values():
-            # Record to alternate limit
-            alternate_limit -= 1
-            continue
-        # Add species to assignable factions
-        sidcon_species.append(faction)
-
-    # Create assignments dictionary and add current assignments
-    assignments = {player: ("", emoji) for player, emoji in current_player_assignment.items() if emoji}
+        impact_limit -= faction.impact
+        bifurcation_limit -= 0 if faction.version == "base" else 1
+        available_species.remove_by_faction(faction)
 
     # Loop through players with exclusions
     for player in player_exclusions:
         # Skip if player already has an assignment
-        if player in assignments:
+        if current_player_assignment[player]:
             continue
 
-        player_options = [
-            (species, [
-                version
-                for version in species.keys()
-                if species.get(version).get("exclusion") not in player_exclusions[player]
-            ])
-            for species in sidcon_species
-            if species.get("base").get("exclusion") not in player_exclusions[player] or
-               species.get("expansion").get("exclusion") not in player_exclusions[player]
-        ]
+        player_selection = select_faction(player_exclusions[player], available_species, bifurcation_limit, impact_limit)
 
-        # Pick a species for the player
-        player_species, versions = choice(player_options)
-
-        # Pick the version
-        if alternate_limit <= 0 and "base" in versions:
-            # Pick base if expansion allowance out
-            player_faction_version = "base"
-        else:
-            # Randomly pick base or expansion
-            player_faction_version = choice(versions)
-        # Record to alternate limit
-        alternate_limit -= 1 if player_faction_version == "expansion" else 0
-
-        # Remove the pick from available species to keep other players from getting it
-        sidcon_species.remove(player_species)
-
-        # Add short name and emoji to assignments dictionary
-        player_assignment, player_emoji = format_player_selection(player_species[player_faction_version])
-        assignments.setdefault(player, (player_assignment, player_emoji))
+        if player_selection:
+            bifurcation_limit -= 0 if player_selection.version == "base" else 1
+            impact_limit -= player_selection.impact
+            available_species.remove_by_faction(player_selection)
+            current_player_assignment[player] = player_selection
 
     # Loop through players to assign faction
     for player in players:
         # Skip if player already has an assignment
-        if player in assignments:
+        if current_player_assignment[player]:
             continue
 
-        # Pick a species for the player
-        player_species = choice(sidcon_species)
-        # Remove the pick from available species to keep other players from getting it
-        sidcon_species.remove(player_species)
+        player_selection = select_faction([], available_species, bifurcation_limit, impact_limit)
 
-        # Pick the version
-        if alternate_limit <= 0:
-            # Pick base if expansion allowance out
-            player_faction_version = "base"
-        else:
-            # Randomly pick base or expansion
-            player_faction_version = choice(["base", "expansion"])
-        # Record to alternate limit
-        alternate_limit -= 1 if player_faction_version == "expansion" else 0
+        if player_selection:
+            bifurcation_limit -= 0 if player_selection.version == "base" else 1
+            impact_limit -= player_selection.impact
+            available_species.remove_by_faction(player_selection)
+            current_player_assignment[player] = player_selection
 
-        # Add short name and emoji to assignments dictionary
-        player_assignment, player_emoji = format_player_selection(player_species[player_faction_version])
-        assignments.setdefault(player, (player_assignment, player_emoji))
-    return assignments
+    assignments = {player: (faction.name, faction.emoji) for player, faction in current_player_assignment.items()}
+    total_impact = sum(faction.impact for faction in current_player_assignment.values())
+    return assignments, total_impact
 
 
-def structure_assignments(assignments):
+def structure_assignments(assignments, impact):
     """
-    :param assignments:
+    :param assignments: The dictionary of player assignments
+    :param impact:The total impact of the selected factions
     :return:
     """
     return "Assignments!\n" + \
            "\n".join([
                f"{player} - {emoji} {faction}" for player, (faction, emoji)
                in assignments.items()
-           ])
+           ]) + "\n" + f"Impact: {impact}"
 
 
 if __name__ == '__main__':

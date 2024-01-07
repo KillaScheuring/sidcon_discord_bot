@@ -55,6 +55,9 @@ class Faction:
         self.start_with = start if type(start) == StartCard else StartCard(**start)
 
         self.name = self.shortnames[0] if self.shortnames else self.fullname
+        self.any_ref = [self.fullname, self.abbreviation, self.emoji, self.exclusion_role]
+        if self.shortnames:
+            self.any_ref.extend(self.shortnames)
 
     def __str__(self):
         return self.name
@@ -77,11 +80,13 @@ class SpeciesList(list[Species]):
                 self.append(Species(**species))
 
     def find_faction(self,
+                     any_ref: str | None = None,
                      fullname: str | None = None, shortname: str | None = None,
                      abbreviation: str | None = None, emoji: str | None = None,
                      exclusion_role: str | None = None):
         """
 
+        :param str any_ref: Any alias
         :param str fullname: The fullname of the faction
         :param str shortname: The short name for the faction
         :param str abbreviation: The abbreviation of the faction
@@ -92,12 +97,12 @@ class SpeciesList(list[Species]):
         for race in self:
             if race.base.fullname == fullname or (race.base.shortnames and shortname in race.base.shortnames) or \
                     race.base.abbreviation == abbreviation or race.base.emoji == emoji or \
-                    race.base.exclusion_role == exclusion_role:
+                    race.base.exclusion_role == exclusion_role or any_ref in race.base.any_ref:
                 return race.base
             if race.expansion.fullname == fullname or \
                     (race.expansion.shortnames and shortname in race.expansion.shortnames) or \
                     race.expansion.abbreviation == abbreviation or race.expansion.emoji == emoji or \
-                    race.expansion.exclusion_role == exclusion_role:
+                    race.expansion.exclusion_role == exclusion_role or any_ref in race.expansion.any_ref:
                 return race.expansion
         return None
 
