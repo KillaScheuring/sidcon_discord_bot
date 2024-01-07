@@ -114,9 +114,9 @@ async def process_assignment(interaction: Interaction,
     current_assignments, player_exclusions = get_current_assignments(interaction, assignments)
 
     await interaction.response.send_message(structure_assignments(
-        *random_assignment(list(current_assignments.keys()),
-                           bifurcation_limit, impact_limit, current_assignments,
-                           player_exclusions)
+        random_assignment(list(current_assignments.keys()),
+                          bifurcation_limit, impact_limit, current_assignments,
+                          player_exclusions)
     ), ephemeral=True
     )
 

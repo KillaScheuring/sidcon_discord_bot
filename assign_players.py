@@ -149,13 +149,15 @@ def select_faction(exclusions, available_species, bifurcation_limit, impact_limi
     if not player_options:
         return None
 
+    player_selection = None
     for attempts in range(3):
         player_selection = choice(player_options)
         if (bifurcation_limit > 0 or player_selection.version == "base") \
                 and impact_limit - player_selection.impact > 0:
             break
+        player_options.remove(player_selection)
 
-    return choice(player_options)
+    return player_selection
 
 
 def random_assignment(players, bifurcation_limit=None, impact_limit=None, current_player_assignment=None,
@@ -223,17 +225,16 @@ def random_assignment(players, bifurcation_limit=None, impact_limit=None, curren
     return assignments, total_impact
 
 
-def structure_assignments(assignments, impact):
+def structure_assignments(assignments):
     """
     :param assignments: The dictionary of player assignments
-    :param impact:The total impact of the selected factions
     :return:
     """
     return "Assignments!\n" + \
            "\n".join([
                f"{player} - {emoji} {faction}" for player, (faction, emoji)
                in assignments.items()
-           ]) + "\n" + f"Impact: {impact}"
+           ])
 
 
 if __name__ == '__main__':
