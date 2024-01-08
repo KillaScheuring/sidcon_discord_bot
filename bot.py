@@ -29,6 +29,33 @@ client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
 
 
+@tree.command(name="poll", description="Creates a poll for a SidCon meet up")
+@app_commands.describe(meet_up_message="The message purposing the meet up. (e.g. I have a need for cubes)",
+                       meet_up_day="The proposed day for the meet up",
+                       meet_up_time="The purposed time for the meet up")
+@app_commands.rename(meet_up_message="message",
+                     meet_up_day="day",
+                     meet_up_time="time")
+async def meet_up(interaction: Interaction,
+                  meet_up_day: str,
+                  meet_up_time: str,
+                  meet_up_message: Optional[str] = None):
+    """
+    Generates a poll for planning a meet up
+    :param interaction:
+    :param meet_up_message:
+    :param meet_up_day:
+    :param meet_up_time:
+    """
+    poll_content = "@everyone\n" + \
+                   (f"{meet_up_message}\n" if meet_up_message else "") + \
+                   f"{meet_up_day} at {meet_up_time}\n" \
+                   f":raised_hand:\tGoing\n" \
+                   f":one:\tBringing a plus-one\n" \
+                   f":fingers_crossed:\tMaybe\n"
+    await interaction.response.send_message(poll_content, ephemeral=True)
+
+
 @tree.command(name="factions", description="Manages which factions you would prefer not to get during assignment")
 async def assign_exclusion(interaction: Interaction):
     """
@@ -75,22 +102,22 @@ async def process_assignment(interaction: Interaction,
                              bifurcation_limit: Optional[int] = 10
                              ):
     """
-
-
+    Takes the provided combination of players and assigned factions and assigns the remaining
     :param Interaction interaction:
-    :param Optional[str] player_assignment_1:
-    :param Optional[str] player_assignment_2:
-    :param Optional[str] player_assignment_3:
-    :param Optional[str] player_assignment_4:
-    :param Optional[str] player_assignment_5:
-    :param Optional[str] player_assignment_6:
-    :param Optional[str] player_assignment_7:
-    :param Optional[str] player_assignment_8:
-    :param Optional[str] player_assignment_9:
-    :param Optional[int] impact_limit:
-    :param Optional[int] bifurcation_limit:
-    :return:
+    :param Optional[str] player_assignment_1: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_2: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_3: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_4: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_5: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_6: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_7: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_8: A combination of player (name or mention) and faction (optional)
+    :param Optional[str] player_assignment_9: A combination of player (name or mention) and faction (optional)
+    :param Optional[int] impact_limit: The maximum allowed impact. Control for newer players.
+    :param Optional[int] bifurcation_limit: The maximum number of allowed alternate factions. Control for newer players.
     """
+
+    # Add all assignments to a list for easier processing
     assignments = []
 
     if player_assignment_1:
@@ -128,46 +155,6 @@ async def on_ready():
     print("Ready")
 
 
-# @bot.command(name="assign", help="Assigns random factions to players")
-# async def random_assign_players(ctx, *players):
-#     """
-#     :param commands.context.Context ctx:
-#     :param list players: The list of players to assign
-#     """
-#     if "\n" in ctx.message.content:
-#         current_assignments, player_exclusions = get_current_assignments(ctx.message)
-#         await ctx.message.reply(structure_assignments(
-#             random_assignment(list(current_assignments.keys()), 10, current_assignments, player_exclusions)
-#         ))
-#     else:
-#         await ctx.message.reply(structure_assignments(random_assignment(list(players), 10)))
-#
-#
-# @bot.command(name="assign-control", help="Assigns factions to players and controls the number of alternates")
-# async def random_assign_players(ctx, *players):
-#     """
-#     :param commands.context.Context ctx:
-#     :param list players: The list of players to assign
-#     """
-#
-#     if "\n" in ctx.message.content:
-#         current_assignments, player_exclusions = get_current_assignments(ctx.message)
-#         await ctx.message.reply(structure_assignments(
-#             random_assignment(list(current_assignments.keys()), None, current_assignments, player_exclusions)
-#         ))
-#     else:
-#         await ctx.message.reply(structure_assignments(random_assignment(list(players))))
-#
-#
-# @bot.command(name="assign-selection", help="Assigns factions to players where some players have assignments")
-# async def random_assign_selected(ctx):
-#     """
-#     :param ctx:
-#     :return:
-#     """
-#     print(ctx.message.content)
-#
-#
 # @bot.command(name="create-roles", help="Adds roles for bot operation")
 # async def add_roles(ctx):
 #     """
@@ -185,31 +172,6 @@ async def on_ready():
 #             await ctx.guild.create_role(name=exclusion_role, colour=None)
 #
 #
-# @bot.command(name="no", help="Add exclusion role to your user. For example, no-unity to not be assigned unity")
-# async def assign_exclusion(ctx, *factions):
-#     """
-#
-#     :param ctx:
-#     :param factions:
-#     :return:
-#     """
-#     role_names = emoji_to_exclusion(factions)
-#     for role_name in role_names:
-#         await ctx.message.author.add_roles(find_role(ctx, role_name))
-#
-#
-# @bot.command(name="add", help="Remove exclusion role from your user. For example, no-unity to be assigned unity")
-# async def assign_exclusion(ctx, *factions):
-#     """
-#
-#     :param ctx:
-#     :param factions:
-#     :return:
-#     """
-#     role_names = emoji_to_exclusion(factions)
-#     for role_name in role_names:
-#         await ctx.message.author.remove_roles(find_role(ctx, role_name))
-
 
 if __name__ == '__main__':
     client.run(TOKEN)
