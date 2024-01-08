@@ -98,7 +98,7 @@ def report_to_sheet(final_scores, winners, game_date=None):
     # Add the date
     worksheet.cell(f"A{row_index}").value = game_date.strftime("%m/%d/%Y")
     # Add the confluence score calculations
-    worksheet.cell(f"B{row_index}").value = f"=ROUND(SUM(E{row_index}:V{row_index})/(D{row_index}-1), 1)"
+    worksheet.cell(f"B{row_index}").value = f"=ROUND((SUM(E{row_index}:V{row_index})-Q{row_index})/(D{row_index}-1), 1)"
     # Add the winner calculation
     worksheet.cell(f"C{row_index}").value = "/".join([winner.name for winner in winners])
     # Add the player count
