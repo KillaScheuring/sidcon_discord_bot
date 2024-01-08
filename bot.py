@@ -8,7 +8,7 @@ from typing import Optional, List
 from pprint import pprint
 from datetime import timezone
 from assign_players import random_assignment, structure_assignments, get_current_assignments, list_factions
-from final_scores_processing import get_final_scores, structure_response, report_to_sheet
+from final_scores_processing import get_final_scores, structure_response, report_to_sheet, calculate_winner
 from manage_roles import find_role, emoji_to_exclusion
 from exclusion_settings import ExclusionSettings
 from assignment_interaction import AssignmentInteraction
@@ -153,6 +153,24 @@ async def process_assignment(interaction: Interaction,
 async def on_ready():
     await tree.sync()
     print("Ready")
+
+
+@client.event
+async def on_message(message):
+    if message.channel.name != "final-scores":
+        return
+
+    final_scores = get_final_scores(message.content)
+    if not final_scores:
+        return
+
+    winners, score = calculate_winner(final_scores)
+
+    # Respond with the confluence score
+    await message.reply(structure_response(final_scores, winners, score))
+
+    # Add final scores to spreadsheet
+    report_to_sheet(final_scores, winners, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
 
 
 # @bot.command(name="create-roles", help="Adds roles for bot operation")

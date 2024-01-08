@@ -5,6 +5,7 @@ import os
 from datetime import date
 import re
 from assign_players import list_factions, find_faction
+from sidcon_classes import SpeciesList
 
 load_dotenv()
 GOOGLE_SPREADSHEET_ID = os.getenv('GOOGLE_SPREADSHEET_ID')
@@ -14,7 +15,7 @@ GOOGLE_SPREADSHEET = os.getenv("GOOGLE_SPREADSHEET")
 
 def next_available_row(worksheet):
     str_list = list(filter(None, worksheet.get_col(1)))
-    return str(len(str_list)+1)
+    return str(len(str_list) + 1)
 
 
 def get_final_scores(message_content):
@@ -27,10 +28,16 @@ def get_final_scores(message_content):
     if "-" not in message_content:
         return {}
 
+    species_list = SpeciesList()
+
     message_content = re.sub("(\s+)(-)(\s+)", " - ", message_content)
 
     faction_rows = message_content.split("\n")
-    return {faction: float(score) for faction, score in [row.split(" - ") for row in faction_rows if " - " in row]}
+    return {
+        species_list.find_faction(faction): float(score)
+        for faction, score in
+        [row.split(" - ") for row in faction_rows if " - " in row]
+    }
 
 
 def calculate_confluence_score(final_scores):
@@ -39,9 +46,15 @@ def calculate_confluence_score(final_scores):
     :param dict final_scores: The scores for the game
     :return float: The confluence score of the game
     """
-
-    scores = final_scores.values()
-    return round(sum(scores) / (len(scores) - 1), 2)
+    table_score = 0
+    number_of_players = 0
+    for faction, score in final_scores.items():
+        # Check if faction is the Falling Light
+        if faction.abbreviation != "FL":
+            # If not, add the score to the tables score
+            table_score += score
+        number_of_players += 1
+    return round(table_score / (number_of_players - 1), 2)
 
 
 def calculate_winner(final_scores):
@@ -50,23 +63,24 @@ def calculate_winner(final_scores):
     :param dict final_scores: The scores for the game
     :return float: The confluence score of the game
     """
-    winner = (None, 0)
-    for (faction, score) in final_scores.items():
-        if score > winner[1]:
-            winner = (faction, score)
-    return find_faction(winner[0]), winner[1]
+    highest_score = max(list(final_scores.values()))
+    winners = [faction for faction in final_scores if final_scores[faction] == highest_score]
+    winners.sort(key=lambda x: x.order)
+    return winners, highest_score
 
 
-def report_to_sheet(final_scores, game_date=None):
+def report_to_sheet(final_scores, winners, game_date=None):
     """
     Takes the final scores and puts them into the Google sheet
     :param final_scores: The final scores from the Discord message
+    :param winners: The winning factions
     :param game_date: The date of the message
     """
     if not game_date:
         game_date = date.today()
 
-    sidereal_confluence_factions = list_factions()
+    sidereal_confluence_factions = SpeciesList().factions()
+    final_scores = {faction.name: score for faction, score in final_scores.items()}
 
     # Open the spreadsheet recording the final score data
     spreadsheet = client.open(GOOGLE_SPREADSHEET)
@@ -78,35 +92,37 @@ def report_to_sheet(final_scores, game_date=None):
     # Loop through the factions and input the appropriate values from the final scores
     for index, faction in enumerate(sidereal_confluence_factions):
         faction_cell = chr(index + ord("E")) + str(row_index)
-        if faction.get("full") in final_scores or faction.get("emoji") in final_scores:
-            worksheet.cell(faction_cell).value = \
-                final_scores.get(faction.get("full"), final_scores.get(faction.get("emoji")))
-        elif len(set(faction.get("short", [])) - set(final_scores.keys())) < len(faction.get("short", [])):
-            for short_name in faction.get("short", []):
-                if final_scores.get(short_name):
-                    worksheet.cell(faction_cell).value = final_scores.get(short_name)
+        if faction.name in final_scores:
+            worksheet.cell(faction_cell).value = final_scores.get(faction.name)
+
+    print(game_date.strftime("%m/%d/%Y"))
 
     # Add the date
     worksheet.cell(f"A{row_index}").value = game_date.strftime("%m/%d/%Y")
     # Add the confluence score calculations
     worksheet.cell(f"B{row_index}").value = f"=ROUND(SUM(E{row_index}:V{row_index})/(D{row_index}-1), 1)"
     # Add the winner calculation
-    worksheet.cell(f"C{row_index}").value = f"=INDEX($E$1:$V$1,0," \
-                                            f"MATCH(MAX($E{row_index}:$V{row_index}),$E{row_index}:$V{row_index},0))"
+    worksheet.cell(f"C{row_index}").value = "/".join([winner.name for winner in winners])
     # Add the player count
     worksheet.cell(f"D{row_index}").value = f"=COUNTA(E{row_index}:V{row_index})"
 
 
-def structure_response(final_scores):
+def structure_response(final_scores, winners, score):
     """
 
-    :param final_scores:
+    :param final_scores: The factions final scores
+    :param winners: The winning factions
+    :param score: The winning score
     :return:
     """
     confluence_score = calculate_confluence_score(final_scores)
-    winner, score = calculate_winner(final_scores)
+    # Format winners
+    winner_message = []
+    for winner in winners:
+        winner_message.append(f"{winner.emoji} {winner.name} with {score}")
+    winner_message = "\n".join(winner_message)
     return f"Winner: \n" \
-           f"{winner.get('emoji')} {winner.get('short', [winner.get('full')])[0]} with {score}\n" \
+           f"{winner_message}\n" \
            f"\n" \
            f"Confluence Score: \n" \
            f"{confluence_score}"

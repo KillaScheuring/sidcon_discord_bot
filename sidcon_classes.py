@@ -65,7 +65,7 @@ class Faction:
                  full: str, abbreviation: str, emoji: str,
                  exclusion: str, color: Color | dict, impact: int,
                  consumes: Resources | dict, produces: Resources | dict, start: StartCard | dict,
-                 short: list[str] | str | None = None):
+                 short: list[str] | str | None = None, order: int | None = None):
         self.version = version
         self.fullname = full
         self.shortnames = [short] if type(short) == str else short
@@ -77,6 +77,7 @@ class Faction:
         self.consumes = consumes if type(consumes) == Resources else Resources(**consumes)
         self.produces = produces if type(produces) == Resources else Resources(**produces)
         self.start_with = start if type(start) == StartCard else StartCard(**start)
+        self.order = order
 
         self.name = self.shortnames[0] if self.shortnames else self.fullname
         self.any_ref = [self.fullname, self.abbreviation, self.emoji, self.exclusion_role]
@@ -158,6 +159,7 @@ class SpeciesList(list[Species]):
         for species in self:
             factions.append(species.base)
             factions.append(species.expansion)
+        factions.sort(key=lambda x: x.order)
         return factions
 
 

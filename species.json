@@ -6,6 +6,7 @@
         "Kit",
         "K't"
       ],
+      "order": 1,
       "abbreviation": "KA",
       "emoji": "<:kit:973968075655356476>",
       "exclusion": "no-kit",
@@ -56,6 +57,7 @@
         "Kit Technophiles",
         "K't Technophiles"
       ],
+      "order": 10,
       "abbreviation": "KT",
       "emoji": "<:kit_technophiles:973994842571047022>",
       "exclusion": "no-kit-technophiles",
@@ -104,6 +106,7 @@
   {
     "base": {
       "full": "Caylion Plutocracy",
+      "order": 2,
       "abbreviation": "CP",
       "emoji": "<:caylion:973967848634474556>",
       "exclusion": "no-caylion",
@@ -150,6 +153,10 @@
     },
     "expansion": {
       "full": "Caylion Collaborative",
+      "short": [
+        "Collaborative"
+      ],
+      "order": 11,
       "abbreviation": "CC",
       "emoji": "<:caylion_collaborative:973994842172555284>",
       "exclusion": "no-caylion-collaborative",
@@ -201,6 +208,7 @@
       "short": [
         "Kjas"
       ],
+      "order": 3,
       "abbreviation": "KD",
       "emoji": "<:kjas:973968215262781460>",
       "exclusion": "no-kjas",
@@ -252,6 +260,7 @@
         "Kjas Independent Nations",
         "Kjas Independence"
       ],
+      "order": 12,
       "abbreviation": "KI",
       "emoji": "<:kjas_independent_nations:973994842663301180>",
       "exclusion": "no-kjas-independent-nations",
@@ -305,6 +314,7 @@
       "short": [
         "Fade"
       ],
+      "order": 4,
       "abbreviation": "FC",
       "emoji": "<:faderan:973968175848882186>",
       "exclusion": "no-faderan",
@@ -354,6 +364,7 @@
       "short": [
         "Falling Light"
       ],
+      "order": 13,
       "abbreviation": "FL",
       "emoji": "<:faderan_society_of_falling_light:973994842541674516>",
       "exclusion": "no-falling-light",
@@ -402,6 +413,7 @@
   {
     "base": {
       "full": "Im'dril Nomads",
+      "order": 5,
       "abbreviation": "IN",
       "emoji": "<:imdril:973968194974933053>",
       "exclusion": "no-imdril",
@@ -452,6 +464,7 @@
         "Grand Fleet",
         "Im'dril Grand Fleet"
       ],
+      "order": 14,
       "abbreviation": "IG",
       "emoji": "<:imdril_grand_fleet:973994842512293908>",
       "exclusion": "no-grand-fleet",
@@ -500,6 +513,7 @@
   {
     "base": {
       "full": "Eni Et Ascendency",
+      "order": 6,
       "abbreviation": "EA",
       "emoji": "<:eni_et:973967900757090305>",
       "exclusion": "no-eni-et",
@@ -546,6 +560,7 @@
     },
     "expansion": {
       "full": "Eni Et Engineers",
+      "order": 15,
       "abbreviation": "EE",
       "emoji": "<:eni_et_engineers:973994842365493298>",
       "exclusion": "no-eni-et-engineers",
@@ -594,6 +609,7 @@
   {
     "base": {
       "full": "Unity",
+      "order": 7,
       "abbreviation": "U",
       "emoji": "<:unity:973968273282592788>",
       "exclusion": "no-unity",
@@ -646,6 +662,7 @@
     },
     "expansion": {
       "full": "Deep Unity",
+      "order": 16,
       "abbreviation": "DU",
       "emoji": "<:deep_unity:973994842306793574>",
       "exclusion": "no-deep-unity",
@@ -698,6 +715,7 @@
   {
     "base": {
       "full": "Yengii Society",
+      "order": 8,
       "abbreviation": "YS",
       "emoji": "<:yengii:973968291259351041>",
       "exclusion": "no-yengii",
@@ -744,6 +762,7 @@
     },
     "expansion": {
       "full": "Yengii Jii",
+      "order": 17,
       "abbreviation": "YJ",
       "emoji": "<:yengii_jii:973994842390687744>",
       "exclusion": "no-yengii-jii",
@@ -792,6 +811,7 @@
   {
     "base": {
       "full": "Zeth Anocracy",
+      "order": 9,
       "abbreviation": "ZA",
       "emoji": "<:zeth:973968307969458239>",
       "exclusion": "no-zeth",
@@ -841,6 +861,7 @@
       "short": [
         "Zeth Charity"
       ],
+      "order": 18,
       "abbreviation": "ZC",
       "emoji": "<:zeth_charity_syndicate:973994842575220776>",
       "exclusion": "no-zeth-charity",
