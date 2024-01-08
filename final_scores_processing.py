@@ -40,6 +40,20 @@ def get_final_scores(message_content):
     }
 
 
+def reorder_final_scores(final_scores, author_id):
+    """
+    Builds a message that reorders the final score input from highest to lowest
+    :param final_scores: The pairs of factions to scores
+    :param author_id: The id of the reporter
+    :return: The reordered message
+    """
+    final_scores_list = list(final_scores.items())
+    final_scores_list.sort(reverse=True, key=lambda x: x[1])
+
+    message = [f"{faction.emoji} - {score}" for faction, score in final_scores_list]
+    return f"Reported by <@{author_id}>\n" + "\n".join(message)
+
+
 def calculate_confluence_score(final_scores):
     """
     Calculates the confluence score for a game

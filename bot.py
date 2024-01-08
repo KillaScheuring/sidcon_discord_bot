@@ -2,13 +2,14 @@ import os
 import discord
 from discord.ext import commands
 from discord import app_commands
-from discord import Member, Interaction
+from discord import Member, Interaction, Message
 from dotenv import load_dotenv
 from typing import Optional, List
 from pprint import pprint
 from datetime import timezone
-from assign_players import random_assignment, structure_assignments, get_current_assignments, list_factions
-from final_scores_processing import get_final_scores, structure_response, report_to_sheet, calculate_winner
+from assign_players import random_assignment, structure_assignments, get_current_assignments
+from final_scores_processing import get_final_scores, calculate_winner, \
+    structure_response, report_to_sheet, reorder_final_scores
 from manage_roles import find_role, emoji_to_exclusion
 from exclusion_settings import ExclusionSettings
 from assignment_interaction import AssignmentInteraction
@@ -53,7 +54,7 @@ async def meet_up(interaction: Interaction,
                    f":raised_hand:\tGoing\n" \
                    f":one:\tBringing a plus-one\n" \
                    f":fingers_crossed:\tMaybe\n"
-    await interaction.response.send_message(poll_content, ephemeral=True)
+    await interaction.response.send_message(poll_content)
 
 
 @tree.command(name="factions", description="Manages which factions you would prefer not to get during assignment")
@@ -145,8 +146,7 @@ async def process_assignment(interaction: Interaction,
                                         bifurcation_limit, impact_limit, current_assignments,
                                         player_exclusions)
     await interaction.response.send_message(structure_assignments(new_assignments),
-                                            view=AssignmentInteraction(list(new_assignments.values())),
-                                            ephemeral=True)
+                                            view=AssignmentInteraction(list(new_assignments.values())))
 
 
 @client.event
@@ -156,21 +156,24 @@ async def on_ready():
 
 
 @client.event
-async def on_message(message):
-    if message.channel.name != "final-scores":
+async def on_message(message: Message):
+    if message.channel.name != "final-scores" or message.author.bot:
         return
 
     final_scores = get_final_scores(message.content)
     if not final_scores:
         return
 
+    sorted_message = await message.channel.send(content=reorder_final_scores(final_scores, message.author.id))
+    await message.delete()
+
     winners, score = calculate_winner(final_scores)
 
     # Respond with the confluence score
-    await message.reply(structure_response(final_scores, winners, score))
+    await sorted_message.reply(structure_response(final_scores, winners, score))
 
-    # Add final scores to spreadsheet
-    report_to_sheet(final_scores, winners, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
+    # # Add final scores to spreadsheet
+    # report_to_sheet(final_scores, winners, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
 
 
 # @bot.command(name="create-roles", help="Adds roles for bot operation")
