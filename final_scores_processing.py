@@ -95,8 +95,6 @@ def report_to_sheet(final_scores, winners, game_date=None):
         if faction.name in final_scores:
             worksheet.cell(faction_cell).value = final_scores.get(faction.name)
 
-    print(game_date.strftime("%m/%d/%Y"))
-
     # Add the date
     worksheet.cell(f"A{row_index}").value = game_date.strftime("%m/%d/%Y")
     # Add the confluence score calculations
