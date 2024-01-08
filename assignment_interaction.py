@@ -54,11 +54,12 @@ class AssignmentInteraction(ui.View):
         consumer_message = []
         producer_message = []
         for resource in resource_emoji_dict:
-            consumer_message.append(f"Consumes: {self.consumption[resource]} {resource_emoji_dict[resource]}")
-            producer_message.append(f"Produces: {self.production[resource]} {resource_emoji_dict[resource]}")
+            consumer_message.append(f"{self.consumption[resource]} {resource_emoji_dict[resource]}")
+            producer_message.append(f"{self.production[resource]} {resource_emoji_dict[resource]}")
         consumer_message = "; ".join(consumer_message)
         producer_message = "; ".join(producer_message)
-        await interaction.response.send_message(content=f"{consumer_message}\n{producer_message}", ephemeral=True)
+        await interaction.response.send_message(content=f"Consumes: {consumer_message}\nProduces: {producer_message}",
+                                                ephemeral=True)
 
     @ui.button(label="Score")
     async def score_callback(self, interaction: Interaction, button):
