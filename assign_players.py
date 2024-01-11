@@ -104,7 +104,7 @@ def get_current_assignments(interaction, current_assignments):
         assignment = re.sub("(\s+)(-)(\s+)", " - ", assignment + " ")
         try:
             player, faction = assignment.split(" - ")
-            faction = species_list.find_faction(any_ref=faction)
+            faction = species_list.find_faction(any_ref=faction.strip())
         except ValueError:
             player, faction = assignment.strip(), None
 
