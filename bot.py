@@ -172,8 +172,8 @@ async def on_message(message: Message):
     # Respond with the confluence score
     await sorted_message.reply(structure_response(final_scores, winners, score))
 
-    # # Add final scores to spreadsheet
-    # report_to_sheet(final_scores, winners, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
+    # Add final scores to spreadsheet
+    report_to_sheet(final_scores, winners, message.created_at.replace(tzinfo=timezone.utc).astimezone(tz=None))
 
 
 # @bot.command(name="create-roles", help="Adds roles for bot operation")
