@@ -146,7 +146,7 @@ class SpeciesList(list[Species]):
         if not faction:
             faction = self.find_faction(fullname, shortname, abbreviation, emoji, exclusion_role)
         for race in self:
-            if race.base == faction or race.expansion == faction:
+            if race.base.abbreviation == faction.abbreviation or race.expansion.abbreviation == faction.abbreviation:
                 self.remove(race)
                 return
 
