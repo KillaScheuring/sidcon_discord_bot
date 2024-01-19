@@ -2,11 +2,36 @@ from discord import ui, Interaction, ButtonStyle, Member
 from discord.ui.button import Button
 from sidcon_classes import Faction, resource_emoji_dict
 from pprint import pprint
+from assign_players import structure_assignments, random_assignment
 
 
 class AssignmentInteraction(ui.View):
-    def __init__(self, factions):
+    def __init__(self, factions, random_assignment_params):
         super().__init__()
+        self.random_assignment_params = random_assignment_params
+        self.update_factions(factions)
+        self.impact = 0
+        self.consumption = {
+            "green": 0,
+            "brown": 0,
+            "white": 0,
+            "black": 0,
+            "blue": 0,
+            "yellow": 0,
+            "ultratech": 0
+        }
+        self.production = {
+            "green": 0,
+            "brown": 0,
+            "white": 0,
+            "black": 0,
+            "blue": 0,
+            "yellow": 0,
+            "ultratech": 0
+        }
+        self.factions = factions
+
+    def update_factions(self, factions):
         self.impact = 0
         self.consumption = {
             "green": 0,
@@ -73,3 +98,15 @@ class AssignmentInteraction(ui.View):
         for faction in self.factions:
             scoring_template.append(f"{faction.emoji} - ")
         await interaction.response.send_message(content="\n".join(scoring_template), ephemeral=True)
+
+    @ui.button(label="Reroll", row=2)
+    async def reroll_callback(self, interaction: Interaction, button):
+        """
+        Returns a new assignment message
+        :param interaction:
+        :param button:
+        :return:
+        """
+        new_assignments = random_assignment(**self.random_assignment_params)
+        self.update_factions(list(new_assignments.values()))
+        await interaction.response.edit_message(content=structure_assignments(new_assignments), view=self)

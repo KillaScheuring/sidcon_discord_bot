@@ -160,17 +160,17 @@ def select_faction(exclusions, available_species, bifurcation_limit, impact_limi
     return player_selection
 
 
-def random_assignment(players, bifurcation_limit=None, impact_limit=None, current_player_assignment=None,
-                      player_exclusions=None):
+def random_assignment(initial_player_assignment=None, player_exclusions=None,
+                      bifurcation_limit=None, impact_limit=None):
     """
     Assigns Sidereal Confluence factions to players
-    :param list players: The list of players to assign factions to
+    :param dict initial_player_assignment: The limit to how many alternate factions are in the game
+    :param dict player_exclusions: The list of player faction exclusions
     :param int bifurcation_limit: The limit to how many alternate factions are in the game
     :param int impact_limit: The limit to how much total impact the factions have
-    :param dict current_player_assignment: The limit to how many alternate factions are in the game
-    :param dict player_exclusions: The list of player faction exclusions
     :return dict: The assignments
     """
+    players = list(initial_player_assignment.keys())
     # If no bifurcation limit, set to a third of the players
     if bifurcation_limit is None:
         bifurcation_limit = floor(len(players) / 3)
@@ -180,17 +180,19 @@ def random_assignment(players, bifurcation_limit=None, impact_limit=None, curren
         impact_limit = 3
 
     # If no current players set to empty dictionary
-    if current_player_assignment is None:
+    if initial_player_assignment is None:
         current_player_assignment = {}
 
     # Remove species already assigned
     available_species = SpeciesList()
-    for faction in current_player_assignment.values():
+    for faction in initial_player_assignment.values():
         if not faction:
             continue
         impact_limit -= faction.impact
         bifurcation_limit -= 0 if faction.version == "base" else 1
         available_species.remove_by_faction(faction)
+
+    current_player_assignment = initial_player_assignment.copy()
 
     # Loop through players with exclusions
     for player in player_exclusions:

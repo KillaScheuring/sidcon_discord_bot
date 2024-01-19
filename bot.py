@@ -140,13 +140,19 @@ async def process_assignment(interaction: Interaction,
     if player_assignment_9:
         assignments.append(player_assignment_9)
 
-    current_assignments, player_exclusions = get_current_assignments(interaction, assignments)
+    initial_assignments, player_exclusions = get_current_assignments(interaction, assignments)
 
-    new_assignments = random_assignment(list(current_assignments.keys()),
-                                        bifurcation_limit, impact_limit, current_assignments,
-                                        player_exclusions)
+    random_assignment_params = {
+        "initial_player_assignment": initial_assignments,
+        "player_exclusions": player_exclusions,
+        "bifurcation_limit": bifurcation_limit,
+        "impact_limit": impact_limit
+    }
+
+    new_assignments = random_assignment(**random_assignment_params)
     await interaction.response.send_message(structure_assignments(new_assignments),
-                                            view=AssignmentInteraction(list(new_assignments.values())))
+                                            view=AssignmentInteraction(list(new_assignments.values()),
+                                                                       random_assignment_params))
 
 
 @client.event
